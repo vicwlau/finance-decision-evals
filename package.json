@@ -1,0 +1,14 @@
+{
+  "name": "finance-decision-evals",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.14",
+  "workspaces": [
+    "site"
+  ],
+  "trustedDependencies": [],
+  "scripts": {
+    "site": "bun run --cwd site dev",
+    "data": "bun run --cwd site data"
+  }
+}

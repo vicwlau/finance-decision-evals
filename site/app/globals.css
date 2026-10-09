@@ -1,0 +1,642 @@
+/* Results page. Editorial research-note style:
+   white paper, blue-black ink, one ink-blue accent for the thing that matters.
+
+   Motion: every element's default style is its end state, so the page reads without JavaScript
+   and under reduced motion. Start states live under .motion (set on the page wrapper before first
+   paint when motion is allowed), [data-armed] (a scene that scroll drives, or that waits to play
+   until it is in view) and [data-reveal="pre"]. */
+
+:root {
+  color-scheme: light;
+  --paper: #ffffff;
+  --ink: #1b2030;
+  --graphite: #4e5566;
+  --pencil: #686e7d;
+  --rule: #dfe2e8;
+  --rule-strong: #1b2030;
+  --panel: #f5f6f9;
+  --wash: #eceff4;
+  --sheet-line: #c3c8d3;
+  --skel: #d5d9e1;
+  --accent: #2448a6;
+  --accent-light: #9aacdc;
+  --accent-tint: #e9eef9;
+  --accent-glow: #8ea6ec;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* a rule drawing in: slow start, firm finish */
+  --draw: cubic-bezier(0.5, 0, 0.2, 1);
+  /* the ledger ground: pale green paper ruled every 24px, and muted red under Jev's misses */
+  --pad: #f1f6ee;
+  --pad-rule: #d5e1cf;
+  --pad-col: #b4c8aa;
+  --miss: #f8efed;
+  --miss-rule: #ebd7d3;
+  --miss-col: #d6b3ac;
+  --serif: var(--font-serif), "Source Serif 4", Georgia, serif;
+  --sans: var(--font-sans), "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --label: var(--font-label), "Fragment Mono", ui-monospace, monospace;
+  --wide: 1040px;
+  --gutter: 24px;
+  /* the space between frames: from one frame's last content to the next title (and the footer) */
+  --rhythm: 120px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.6;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+code { font-family: var(--mono); }
+p { margin: 0 0 1em; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+figure { margin: 0; }
+figcaption { font-family: var(--sans); font-size: 14px; line-height: 1.5; color: var(--graphite); margin-top: 14px; }
+.wrap { max-width: calc(var(--wide) + var(--gutter) * 2); margin: 0 auto; padding: 0 var(--gutter); }
+.muted { color: var(--pencil); font-weight: 400; }
+.link-pending { color: var(--accent); border-bottom: 1px solid var(--accent-light); }
+
+/* masthead */
+.masthead { border-bottom: 1px solid var(--rule); }
+.masthead .wrap { display: flex; justify-content: space-between; gap: 16px; padding-top: 14px; padding-bottom: 14px; font-family: var(--sans); font-size: 13px; line-height: 1.4; color: var(--graphite); }
+.masthead strong { font-weight: 600; color: var(--ink); }
+
+/* frames */
+.frame { padding-top: var(--rhythm); }
+.frame-head { max-width: 600px; }
+h2 { font-family: var(--serif); font-weight: 600; font-size: 36px; line-height: 1.12; letter-spacing: -0.012em; margin-bottom: 16px; }
+.frame-head p { margin-bottom: 0; }
+
+/* section labels: each frame opens with its number and name in mono, set on a 1px rule. As the head
+   scrolls in (Reveal), the rule draws from behind the label, then the heading settles. */
+.frame-head { position: relative; padding-top: 26px; }
+.frame-head::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: var(--rule-strong); transform-origin: left center; }
+.mk { position: absolute; left: 0; top: 0; z-index: 1; display: inline-flex; align-items: center; gap: 10px; margin: 0; padding-right: 12px; background: var(--paper); font-family: var(--label); font-size: 12px; line-height: 14px; color: var(--ink); }
+.mk b { font-weight: 400; }
+.frame-head[data-reveal="pre"]::before { transform: scaleX(0); }
+.frame-head[data-reveal="pre"] > .mk { opacity: 0; }
+.frame-head[data-reveal="pre"] > :not(.mk) { opacity: 0; transform: translateY(8px); }
+.frame-head[data-reveal="in"]::before { transition: transform 480ms var(--draw) 80ms; }
+.frame-head[data-reveal="in"] > .mk { transition: opacity 240ms ease-out; }
+.frame-head[data-reveal="in"] > :not(.mk) { transition: opacity 420ms var(--ease) 380ms, transform 420ms var(--ease) 380ms; }
+.frame-head[data-reveal="in"] > p:not(.mk) { transition-delay: 460ms; }
+
+/* the ledger ground behind the figures that carry the argument: the opening's explanation, frame 3's
+   result, and each card's request. No margin rule, so nothing draws a bar down the left edge. */
+.pad { background-color: var(--pad); background-image: repeating-linear-gradient(to bottom, transparent 0 23px, var(--pad-rule) 23px 24px); font-variant-numeric: tabular-nums lining-nums; }
+.pad.is-miss { --pad: var(--miss); --pad-rule: var(--miss-rule); --pad-col: var(--miss-col); }
+
+/* the opening: crop marks at the headline's corners, eight 1px strokes outside the block */
+.reg { position: relative; }
+.reg::before {
+  content: "";
+  position: absolute;
+  inset: var(--o, -16px);
+  pointer-events: none;
+  --m: 12px;
+  background:
+    linear-gradient(var(--ink), var(--ink)) left top / var(--m) 1px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) left top / 1px var(--m) no-repeat,
+    linear-gradient(var(--ink), var(--ink)) right top / var(--m) 1px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) right top / 1px var(--m) no-repeat,
+    linear-gradient(var(--ink), var(--ink)) left bottom / var(--m) 1px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) left bottom / 1px var(--m) no-repeat,
+    linear-gradient(var(--ink), var(--ink)) right bottom / var(--m) 1px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) right bottom / 1px var(--m) no-repeat;
+}
+.scene-intro.reg { --o: -20px -22px -14px -22px; }
+/* the run stamp under the standfirst: which model, how many calls, what it cost */
+.stamp { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 18px 0 0; font-family: var(--label); font-size: 12px; line-height: 1.4; color: var(--graphite); }
+.stamp b { font-weight: 400; color: var(--ink); }
+
+/* figure slots: hairline illustrations mount here; --fp is the scene progress (1 = rest) */
+.figure-slot { --fp: 1; position: relative; width: 100%; overflow: hidden; border-radius: 2px; }
+.figure-slot > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* once the hairline figure mounts, the server-rendered placeholder steps aside */
+.figure-slot[data-mounted] > svg { display: none; }
+.hairline-stage { --hairline-plate: var(--paper); }
+.slot-markers { position: absolute; inset: 0; z-index: 2; pointer-events: none; display: none; }
+.slot-marker { pointer-events: auto; cursor: default; outline-offset: 2px; }
+.figure-slot[data-mounted] .slot-markers { display: block; }
+.slot-marker { position: absolute; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); width: 20px; height: 20px; margin: -10px 0 0 -26px; border-radius: 50%; background: var(--accent); color: var(--paper); font-family: var(--sans); font-size: 11.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 2px var(--paper); }
+.slot-marker { transition: box-shadow 160ms ease-out; }
+[data-armed] .slot-marker { transition: opacity 320ms ease-out, transform 360ms var(--ease), box-shadow 160ms ease-out; }
+[data-armed] .slot-marker:not([data-on]) { opacity: 0; transform: scale(0.6); }
+.figure-slot-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 16px; text-align: center; font-family: var(--sans); font-size: 13px; color: var(--pencil); background: var(--panel); }
+
+/* skeleton text lines shared by both drawings */
+.skel rect { fill: var(--skel); }
+.skel.dark rect { fill: #b3b9c5; }
+.skel.bright rect { fill: var(--hairline-hi, var(--accent)); }
+
+/* the 2px rules over a result, a chart, a lead-in and each request: drawn as a pseudo-element, so they
+   can draw in from the left */
+.progress::before, .knowledge-chart::before, .pair-lead::before, .req::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--rule-strong); transform-origin: left center; }
+
+/* ---------- contract excerpts (frame 1 callout, frame 2 cards) ---------- */
+.excerpt { position: relative; background: var(--paper); border: 1px solid var(--rule); padding: 12px 18px 16px; box-shadow: 4px 4px 0 -1px var(--paper), 4px 4px 0 0 var(--rule); }
+.excerpt-head { display: flex; align-items: baseline; gap: 10px; margin: 0 0 8px; padding-bottom: 7px; border-bottom: 1px solid var(--rule); font-family: var(--serif); }
+.excerpt-sec { font-size: 15px; font-weight: 600; font-variant-numeric: lining-nums; white-space: nowrap; }
+.excerpt-title { font-size: 15.5px; font-weight: 600; font-variant-caps: small-caps; letter-spacing: 0.04em; }
+.excerpt-page { margin-left: auto; font-family: var(--sans); font-size: 12px; color: var(--pencil); white-space: nowrap; }
+.excerpt-body { margin: 0; font-size: 17px; line-height: 1.55; text-align: justify; hyphens: auto; -webkit-hyphens: auto; hyphenate-limit-chars: 8 4 4; }
+.excerpt-sm { padding: 9px 12px 11px; box-shadow: 3px 3px 0 -1px var(--paper), 3px 3px 0 0 var(--rule); }
+.excerpt-sm .excerpt-head { margin-bottom: 6px; padding-bottom: 5px; gap: 8px; }
+.excerpt-sm .excerpt-sec { font-size: 13.5px; }
+.excerpt-sm .excerpt-title { font-size: 14px; }
+.excerpt-sm .excerpt-body { font-size: 14.5px; line-height: 1.5; text-align: left; hyphens: manual; }
+
+/* ---------- 1. The problem: pinned scene ---------- */
+/* --c, step 1: the excerpt settles in as Figure A's sentence lights (figure 0.72 = scene p 0.47; the
+   figure runs 0.2 to 1 over scene p 0 to 0.72). Step 2, the revenue impact, plays at p 0.8 (motion.tsx). */
+.scene { --p: 1; --c: clamp(0, calc((var(--p) - 0.48) / 0.12), 1); position: relative; }
+.scene-pin { position: relative; }
+.scene-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 500px);
+  grid-template-areas: "intro figure" "callout figure";
+  grid-template-rows: auto 1fr;
+  column-gap: 72px;
+  row-gap: 30px;
+  padding-top: 64px;
+  padding-bottom: 32px;
+}
+.scene-intro { grid-area: intro; }
+/* unpinned (reduced motion, no scripts) the scene is a plain frame: the rhythm alone follows it */
+.page:not(.motion) .scene-grid { padding-bottom: 0; }
+.scene-focus { display: contents; }
+.scene-figure { grid-area: figure; }
+.scene-callout { grid-area: callout; opacity: var(--c); transform: translateY(calc((1 - var(--c)) * 14px)); transition: opacity 140ms linear, transform 200ms ease-out; }
+h1 { font-family: var(--serif); font-weight: 560; font-size: clamp(30px, 3vw, 40px); line-height: 1.12; letter-spacing: -0.016em; margin-bottom: 18px; }
+.standfirst { font-size: 20px; line-height: 1.5; color: var(--graphite); margin-bottom: 14px; max-width: 30em; }
+.scene-counter { font-family: var(--sans); font-size: 13px; color: var(--pencil); font-variant-numeric: tabular-nums; margin: 10px 0 0; }
+/* with the hairline figure drawn, the counter sits in the figure's calm upper-left corner */
+.scene-figure { position: relative; }
+.scene-figure:has(.figure-slot[data-mounted]) .scene-counter { position: absolute; left: 2.5%; top: 6%; margin: 0; text-align: left; z-index: 2; }
+.flag-tag { display: inline-flex; align-items: center; gap: 10px; margin: 16px 0 0; padding: 5px 12px 5px 10px; border: 1px solid var(--accent); border-radius: 3px; font-family: var(--sans); font-weight: 600; font-size: 14px; color: var(--accent); }
+.flag-mark { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+.tick-glyph { width: 14px; height: 14px; flex: none; }
+.tick-glyph path { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.scene-callout { position: relative; }
+
+/* step 2: a reviewer's pen marks the price, a tickmark callout drops to the tag, then the explanation.
+   Default is the finished state (no JS, reduced motion); .motion hides it until the scene sets data-impact. */
+.pen { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; }
+.pen:not([data-ready]) { display: none; }
+.pen path { fill: none; stroke: var(--accent); stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.pen-line { stroke-width: 2; }
+.pen-tick { stroke-width: 1.8; }
+.pen-link { stroke-width: 1.25; }
+.motion .scene .pen path { transition: stroke-dashoffset 140ms linear; }
+.motion .scene .impact-tag, .motion .scene .impact-line { transition: opacity 140ms linear, transform 140ms linear; }
+.motion .scene:not([data-impact]) .pen path { stroke-dashoffset: 1; }
+.motion .scene:not([data-impact]) .impact-tag { opacity: 0; transform: translateY(-6px); }
+.motion .scene:not([data-impact]) .impact-line { opacity: 0; transform: translateY(-4px); }
+.motion .scene[data-impact] .pen-line { transition: stroke-dashoffset 480ms cubic-bezier(0.5, 0, 0.2, 1); }
+.motion .scene[data-impact] .pen-tick { transition: stroke-dashoffset 220ms ease-out 440ms; }
+.motion .scene[data-impact] .pen-link { transition: stroke-dashoffset 460ms cubic-bezier(0.45, 0, 0.25, 1) 600ms; }
+.motion .scene[data-impact] .impact-tag { transition: opacity 320ms ease-out 1000ms, transform 380ms var(--ease) 1000ms; }
+.motion .scene[data-impact] .impact-line { transition: opacity 420ms ease-out 1280ms, transform 420ms var(--ease) 1280ms; }
+/* the marked phrase keeps a faint wash once the pen has passed */
+.pen-phrase { background: var(--accent-tint); box-decoration-break: clone; -webkit-box-decoration-break: clone; border-radius: 2px; }
+.motion .scene .pen-phrase { transition: background-color 160ms linear; }
+.motion .scene:not([data-impact]) .pen-phrase { background-color: transparent; }
+.motion .scene[data-impact] .pen-phrase { transition: background-color 400ms ease-out 250ms; }
+.callout-line { font-family: var(--sans); font-size: 15px; line-height: 1.5; color: var(--graphite); margin: 12px 0 0; max-width: 34em; }
+.callout-line.pad { padding: 4px 12px 0; line-height: 24px; color: var(--ink); max-width: none; background-position: 0 4px; }
+
+/* the leader line: from the lit sentence to the excerpt; drawn from JS (motion.tsx) */
+.leader { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; }
+.leader:not([data-ready]) { display: none; }
+.leader path { fill: none; stroke: var(--accent); stroke-width: 1.25; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.leader circle { fill: var(--accent); stroke: var(--paper); stroke-width: 2; transition: opacity 160ms ease-out; }
+
+.motion .scene { --p: 0; height: 330svh; }
+.motion .scene-pin { position: sticky; top: 0; min-height: 100svh; display: flex; align-items: center; }
+.motion .scene-grid { width: 100%; }
+.motion .scene .figure-slot { --fp: 0; }
+
+/* Figure A placeholder: pile (f1), page forward (f2), one sentence lit (f3) */
+.pile-svg {
+  --f1: clamp(0, calc(var(--fp) / 0.36), 1);
+  --f2: clamp(0, calc((var(--fp) - 0.34) / 0.26), 1);
+  --f3: clamp(0, calc((var(--fp) - 0.6) / 0.14), 1);
+}
+.pile-page { --show: clamp(0, calc(var(--f1) * var(--n) - var(--i) + 1), 1); opacity: var(--show); transform: translateY(calc((1 - var(--show)) * -16px)); transition: opacity 120ms linear, transform 160ms ease-out; }
+.pile-page rect { fill: var(--paper); stroke: var(--sheet-line); stroke-width: 1; }
+.pile-page .skel rect { stroke: none; fill: var(--skel); }
+.fwd {
+  opacity: clamp(0, calc((var(--f1) - 0.94) * 17), 1);
+  transform-box: view-box;
+  transform-origin: var(--fwd-origin);
+  transform: translate(calc((1 - var(--f2)) * var(--fwd-tx)), calc((1 - var(--f2)) * var(--fwd-ty))) scale(calc(var(--fwd-s) + (1 - var(--fwd-s)) * var(--f2)));
+  transition: transform 160ms ease-out, opacity 120ms linear;
+}
+.fwd-page { fill: var(--paper); stroke: #aeb4c0; stroke-width: 1; }
+.fwd-rest { opacity: calc(1 - var(--f3) * 0.72); filter: blur(calc(var(--f3) * 1.3px)); transition: opacity 140ms linear; }
+.fwd-tint { fill: var(--accent-tint); opacity: var(--f3); }
+.fwd .skel.bright { opacity: var(--f3); transition: opacity 140ms linear; }
+
+/* ---------- 2. Where Jev fits ---------- */
+/* The figure (its note below it) beside the four cards. With motion, the stage (heading, figure and
+   cards) pins while the page scrolls through the runway, and the scroll drives the scan (motion.tsx,
+   ScanScene). A stage taller than the screen pins by its foot, so the figure and cards stay whole. */
+.fits { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 500px); grid-template-areas: "figure flags"; column-gap: 40px; margin-top: 36px; align-items: start; }
+.fits-figure { grid-area: figure; }
+.fits .flags { grid-area: flags; }
+.scan-runway { height: 0; }
+.motion .scan .scan-stage { position: sticky; top: 0; z-index: 1; background: var(--paper); }
+.motion .scan .scan-runway { height: 60svh; }
+.flags { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; counter-reset: none; }
+.flag { position: relative; font-family: var(--sans); padding-top: 4px; display: flex; flex-direction: column; }
+.flag .margin-note { margin-bottom: 12px; }
+.flag .jev { margin-top: auto; }
+.flag-n { position: absolute; top: -6px; left: -8px; z-index: 1; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: var(--paper); font-size: 11.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 2px var(--paper); }
+
+/* Jev's output: a dark strip under the card, styled like a model's response */
+.jev { background: var(--ink); color: #e9ecf3; border-radius: 3px; padding: 9px 12px 10px; font-family: var(--sans); }
+.jev-top { display: flex; align-items: baseline; gap: 8px; margin: 0; }
+.jev-mark { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #fff; letter-spacing: 0.02em; }
+.jev-mark i { width: 7px; height: 7px; transform: rotate(45deg); background: var(--accent-glow); border-radius: 1px; }
+.jev-field { font-family: var(--mono); font-size: 11.5px; color: #aab6d6; }
+.jev-q { font-size: 11.5px; color: #8e97ad; margin: 0 0 8px; }
+.jev-value { margin-left: auto; font-family: var(--mono); font-size: 21px; line-height: 1; font-weight: 600; color: #fff; font-variant-numeric: tabular-nums; }
+.jev-row { display: flex; align-items: center; gap: 10px; margin: 0; }
+.jev-bar { position: relative; flex: 1 1 auto; height: 6px; background: rgba(255, 255, 255, 0.14); border-radius: 3px; }
+.jev-bar i { position: absolute; left: 0; top: 0; bottom: 0; width: var(--w); background: var(--accent-glow); border-radius: 3px; }
+.jev-bar::after { content: ""; position: absolute; left: 50%; top: -4px; bottom: -4px; width: 1px; background: rgba(255, 255, 255, 0.55); }
+.jev-verdict { font-family: var(--mono); font-size: 11.5px; font-weight: 600; color: var(--accent-glow); border: 1px solid var(--accent-glow); border-radius: 2px; padding: 0 6px 1px; line-height: 1.5; }
+
+/* computing: as the card arrives, the digits run (motion.tsx), the bar fills past its value and settles, the verdict lands */
+@keyframes jev-fill {
+  0% { width: 0; }
+  65% { width: calc(var(--w) + 6%); }
+  100% { width: var(--w); }
+}
+[data-armed] .flag[data-on] .jev-bar i { animation: jev-fill 700ms cubic-bezier(0.25, 0.7, 0.3, 1) 90ms both; }
+[data-armed] .flag .jev-verdict { transition: opacity 220ms ease-out 680ms; }
+/* switching off: the card fades (420ms), then its readout empties, ready to compute again */
+[data-armed] .flag:not([data-on]) .jev-bar i { width: 0; transition: width 0s linear 420ms; }
+[data-armed] .flag:not([data-on]) .jev-verdict { opacity: 0; transition: opacity 0s linear 420ms; }
+
+/* linking: hovering or focusing a card lights it and its marker on the figure, and nothing else */
+.flag { outline-offset: 4px; border-radius: 2px; }
+.flag .excerpt { transition: border-color 160ms ease-out, box-shadow 160ms ease-out; }
+.flag.is-hl .excerpt { border-color: var(--accent-light); box-shadow: 3px 3px 0 -1px var(--paper), 3px 3px 0 0 var(--accent-light); }
+.flag-n { transition: box-shadow 160ms ease-out; }
+.flag.is-hl .flag-n, .slot-marker.is-hl { box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--accent-light); }
+
+/* the label, as a reviewer's note: a small-caps key in graphite, the label in accent italic */
+.margin-note { margin: 10px 0 0; font-family: var(--serif); font-size: 14.5px; line-height: 1.35; }
+.margin-note-key { font-variant-caps: small-caps; letter-spacing: 0.05em; color: var(--graphite); margin-right: 2px; }
+.margin-note i { color: var(--accent); }
+
+/* Figure B placeholder: the reading state comes from the ScanScene's data attributes */
+.scan-svg .sc-edge { fill: var(--paper); stroke: var(--sheet-line); stroke-width: 1; }
+.scan-svg .sc-page { fill: var(--paper); stroke: #aeb4c0; stroke-width: 1; }
+.scan-svg .sc-tint { fill: var(--accent-tint); }
+.scan-svg .marker circle { fill: var(--accent); stroke: var(--paper); stroke-width: 2; }
+.scan-svg .marker text { fill: var(--paper); font-family: var(--sans); font-size: 10.5px; font-weight: 600; }
+.sc-v1, .sc-v2, .sc-flag, .sc-turn, .sc-band { opacity: 0; }
+.sc-turn { fill: var(--paper); stroke: #aeb4c0; stroke-width: 1; transform-box: fill-box; transform-origin: left center; }
+.sc-band { transform: translateY(calc(var(--band, 0) * var(--travel))); }
+.sc-band-tint { fill: var(--accent-tint); opacity: 0.7; }
+.sc-band-line { fill: var(--hairline-hi, var(--accent)); }
+
+[data-scan="idle"] .sc-v0 { opacity: 1; }
+[data-scan="flip"] .sc-v0 { opacity: 0; }
+[data-scan="flip"][data-v="0"] .sc-v0, [data-scan="flip"][data-v="1"] .sc-v1, [data-scan="flip"][data-v="2"] .sc-v2 { opacity: 1; }
+[data-scan="flip"] .sc-band, [data-scan="pause"] .sc-band { opacity: 1; }
+[data-scan="flip"] .sc-turn.a { animation: sc-turn 300ms linear infinite; }
+[data-scan="flip"] .sc-turn.b { animation: sc-turn 300ms linear 150ms infinite; }
+@keyframes sc-turn {
+  0% { opacity: 0; transform: scaleX(1); }
+  20% { opacity: 0.85; }
+  100% { opacity: 0; transform: scaleX(0.08); }
+}
+[data-scan="pause"] .sc-v0 { opacity: 0; }
+[data-scan="pause"] .sc-band { transition: transform 200ms var(--ease); }
+[data-scan="pause"][data-flag="0"] .sc-flag-0, [data-scan="pause"][data-flag="1"] .sc-flag-1,
+[data-scan="pause"][data-flag="2"] .sc-flag-2, [data-scan="pause"][data-flag="3"] .sc-flag-3 { opacity: 1; }
+[data-scan="pause"][data-flag="0"] .sc-band { transform: translateY(var(--stop-0)); }
+[data-scan="pause"][data-flag="1"] .sc-band { transform: translateY(var(--stop-1)); }
+[data-scan="pause"][data-flag="2"] .sc-band { transform: translateY(var(--stop-2)); }
+[data-scan="pause"][data-flag="3"] .sc-band { transform: translateY(var(--stop-3)); }
+[data-scan="pause"] .sc-flag .sc-tint, [data-scan="pause"] .sc-flag .skel.bright, [data-scan="pause"] .sc-flag .marker { animation: sc-light 260ms ease-out both; }
+@keyframes sc-light { from { opacity: 0; } to { opacity: 1; } }
+
+[data-armed] .sc-pull, [data-armed] .flag { transition: opacity 420ms ease-out, transform 480ms var(--ease); }
+[data-armed] .sc-pull:not([data-on]) { opacity: 0; transform: translateX(-28px); }
+[data-armed] .flag:not([data-on]) { opacity: 0; transform: translateX(18px); }
+
+/* ---------- 3. The general question: the review call's two steps, the payment clause, the stakes ---------- */
+/* Beside the heading: the review call's two steps on one bar. Under them, the payment clause as the
+   second step's example, with the stakes line beside it under the bar's column. */
+.frame-test { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 64px; align-items: center; }
+.frame-expert { grid-template-areas: "head side" "lever stakes"; row-gap: 0; }
+.frame-expert > .frame-head { grid-area: head; }
+.frame-expert > .progress { grid-area: side; }
+.frame-expert > .lever { grid-area: lever; margin-top: 72px; }
+.frame-expert > .stakes { grid-area: stakes; align-self: start; margin-top: 72px; }
+/* the stakes: a plain paragraph under a hairline */
+.stakes { margin: 56px 0 0; max-width: 640px; padding-top: 16px; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 15px; line-height: 1.55; color: var(--ink); }
+
+/* the progression: two figures over one bar. The light part is the review call with the questions
+   spelled out; the dark sliver is what computing the facts added. Each label carries its colour. */
+.progress { position: relative; padding-top: 18px; font-family: var(--sans); }
+.progress.pad { padding: 20px 20px 24px; }
+.progress-steps { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+.progress-step { display: grid; gap: 12px; margin: 0; }
+.progress-step.is-final { justify-items: end; text-align: right; }
+/* the swatch keeps its own column, so a label that wraps lines up under its first word */
+.progress-label { display: inline-flex; align-items: flex-start; gap: 8px; font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--ink); text-wrap: balance; }
+.progress-label::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: 0.3em; border-radius: 2px; background: var(--accent-light); }
+.is-final .progress-label::before { background: var(--accent); }
+.progress-bar { position: relative; height: 10px; margin-top: 20px; border-radius: 5px; background: var(--wash); overflow: hidden; }
+.progress-fill { position: absolute; top: 0; bottom: 0; left: calc(var(--a) * 100%); width: calc((var(--b) - var(--a)) * 100%); background: var(--accent-light); transform-origin: left center; }
+/* the second part starts 2px after the first, so the step shows */
+.progress-fill.is-final { left: calc(var(--a) * 100% + 2px); width: calc((var(--b) - var(--a)) * 100% - 2px); background: var(--accent); }
+.progress-note { margin: 12px 0 0; font-size: 13px; color: var(--pencil); }
+.fig-n { font-family: var(--sans); font-weight: 300; font-size: clamp(56px, 6vw, 76px); line-height: 1; letter-spacing: -0.02em; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.fig-n .pct { font-size: 0.5em; letter-spacing: 0; margin-left: 2px; color: var(--graphite); }
+.fig-n.accent, .fig-n.accent .pct { color: var(--accent); }
+/* counted numbers keep their final width, so the % sign stays put while they count */
+.fig-n .num { display: inline-block; min-width: calc(2ch - 0.04em); text-align: right; }
+.is-final .fig-n .num { min-width: calc(3ch - 0.06em); }
+/* playing (PlayScene): the bar fills to the first step as its figure counts, then the second step
+   appears and the bar runs on to its end */
+[data-armed] .progress:not([data-on])::before { transform: scaleX(0); }
+[data-armed] .progress[data-on]::before { transition: transform 480ms var(--draw); }
+[data-armed] .progress-fill:not([data-on]) { transform: scaleX(0); }
+[data-armed] .progress-fill[data-on] { transition: transform 720ms var(--ease); }
+[data-armed] .progress-fill.is-final[data-on] { transition: transform 420ms var(--ease); }
+[data-armed] .progress-step.is-final:not([data-on]) { opacity: 0; }
+[data-armed] .progress-step.is-final[data-on] { transition: opacity 240ms ease-out; }
+
+/* the example: the payment clause as an excerpt, the computed fact as a reviewer's note under it */
+.lever { margin-top: 36px; }
+.fix-demo { border-top: 2px solid var(--rule-strong); padding-top: 18px; }
+.computed-note { display: flex; align-items: flex-start; gap: 8px; margin: 14px 0 0; color: var(--accent); }
+.computed-note code { font-size: 13.5px; line-height: 1.5; }
+.computed-tick { flex: none; width: 15px; height: 15px; margin-top: 2px; overflow: visible; }
+/* a dash, then a gap twice the path's length: undrawn just past offset 1, no cap dot shows */
+.computed-tick path { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 2; stroke-dashoffset: 0; }
+.fix { padding-top: 38px; margin-top: 8px; }
+.pl-track { position: relative; height: 22px; }
+.pl-wash { position: absolute; top: -6px; bottom: -6px; background: var(--wash); border-radius: 2px; }
+.pl-track[data-gold="yes"] .pl-wash { left: 50%; right: 0; }
+.pl-track[data-gold="no"] .pl-wash { left: 0; right: 50%; }
+.pl-rule { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #c8cdd6; }
+.pl-mid { position: absolute; left: 50%; top: -8px; bottom: -8px; width: 1px; background: var(--pencil); }
+/* Layers span the track and travel left of it, so nothing overflows the page to the right. */
+.fix-layer { position: absolute; inset: 0; transform: translateX(calc((var(--x) - 1) * 100%)); pointer-events: none; }
+.fix-dot { position: absolute; left: 100%; top: 50%; width: 16px; height: 16px; border-radius: 50%; transform: translate(-50%, -50%); background: var(--accent); box-shadow: 0 0 0 2px var(--paper); }
+.fix-dot.hollow { background: var(--paper); box-shadow: inset 0 0 0 2px var(--accent-light); }
+.fix-label { position: absolute; left: 100%; bottom: calc(100% + 12px); transform: translateX(-50%); white-space: nowrap; font-family: var(--sans); font-size: 13.5px; }
+.fix-label b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.fix-mover .fix-label b { color: var(--accent); }
+/* the key: what each dot is, with Jev's value and the way it falls */
+.fix-key { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 6px; font-family: var(--sans); font-size: 14.5px; line-height: 1.45; color: var(--graphite); }
+.fix-key li { display: flex; align-items: baseline; gap: 10px; }
+.fix-key b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.fix-key .is-after b { color: var(--accent); }
+.fix-swatch { flex: none; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); transform: translateY(1px); }
+.fix-swatch.hollow { background: var(--paper); box-shadow: inset 0 0 0 2px var(--accent-light); }
+/* the example's lead: which clause, the question, and the labelled answer */
+.fix-lead { font-family: var(--sans); font-size: 15px; line-height: 1.5; color: var(--graphite); margin: 0 0 14px; }
+.fix-lead code { font-size: 0.9em; color: var(--ink); }
+.fix-lead + .fix-ask { margin-top: -6px; }
+.fix-lead strong, .fix-lead b { color: var(--ink); font-weight: 600; }
+.pl-axis { position: relative; height: 16px; margin-top: 12px; font-family: var(--sans); font-size: 12px; color: var(--pencil); }
+.pl-axis i { position: absolute; transform: translateX(-50%); font-style: normal; font-variant-numeric: tabular-nums; }
+
+.lever[data-reveal="pre"] .computed-tick path { stroke-dashoffset: 1.02; }
+.lever[data-reveal="pre"] .computed-note code { opacity: 0; }
+.lever[data-reveal="pre"] .fix-mover { transform: translateX(calc((var(--from) - 1) * 100%)); }
+.lever[data-reveal="pre"] .fix-mover .fix-label, .lever[data-reveal="pre"] .fix-key .is-after { opacity: 0; }
+.lever[data-reveal="in"] .computed-tick path { transition: stroke-dashoffset 280ms ease-out 80ms; }
+.lever[data-reveal="in"] .computed-note code { transition: opacity 360ms ease-out 240ms; }
+.lever[data-reveal="in"] .fix-mover { transition: transform 700ms var(--ease) 650ms; }
+.lever[data-reveal="in"] .fix-mover .fix-label, .lever[data-reveal="in"] .fix-key .is-after { transition: opacity 300ms ease-out 1250ms; }
+
+/* ---------- 4. The technical question (and the verdict cards it shares with frame 5) ---------- */
+.knowledge { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: end; }
+.knowledge-chart { position: relative; padding-top: 6px; }
+.range { font-family: var(--sans); }
+.range-row { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.range-name { font-size: 15px; font-weight: 600; }
+.range-track { position: relative; height: 30px; margin-right: 56px; }
+.range-track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--rule); }
+.range-layer { position: absolute; inset: 0; }
+.range-bar { position: absolute; top: calc(50% - 4px); height: 8px; border-radius: 4px; left: calc(var(--a) * 1%); width: calc((var(--b) - var(--a)) * 1%); min-width: 8px; background: var(--accent-light); }
+.range-row.strong .range-bar { background: var(--accent); }
+.range-tick { position: absolute; top: calc(50% - 9px); height: 18px; width: 2px; left: calc(var(--x) * 1%); transform: translateX(-50%); background: var(--ink); border-radius: 1px; box-shadow: 0 0 0 1px var(--paper); }
+.range-val { position: absolute; top: 50%; left: calc(var(--x) * 1% + 12px); transform: translateY(-50%); font-size: 15px; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.range-row.strong .range-val { color: var(--accent); }
+.range-axis { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 16px; font-size: 12px; color: var(--pencil); padding-top: 8px; }
+.range-axis-track { position: relative; height: 16px; margin-right: 56px; }
+.range-axis-track i { position: absolute; transform: translateX(-50%); font-style: normal; font-variant-numeric: tabular-nums; }
+
+/* the rule draws, then the bars slide in, then their values appear */
+.knowledge-chart[data-reveal="pre"]::before { transform: scaleX(0); }
+.knowledge-chart[data-reveal="pre"] .range-layer { transform: translateX(calc(var(--a) * -1%)); }
+.knowledge-chart[data-reveal="pre"] .range-val { opacity: 0; }
+.knowledge-chart[data-reveal="in"]::before { transition: transform 480ms var(--draw); }
+.knowledge-chart[data-reveal="in"] .range-layer { transition: transform 650ms var(--ease) 400ms; }
+.knowledge-chart[data-reveal="in"] .range-val { transition: opacity 300ms ease-out 950ms; }
+
+.case-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; margin-top: 52px; }
+/* a lead-in line above the cards (frame 4), in the style of frame 6's pair-lead */
+.cards-lead + .case-cards { margin-top: 26px; }
+.case-card { font-family: var(--sans); }
+/* side by side, the two cards share rows (excerpt, request, why), so their blocks line up */
+@media (min-width: 641px) {
+  .case-cards { grid-template-rows: repeat(3, auto); row-gap: 0; }
+  .case-card { display: grid; grid-row: span 3; grid-template-rows: subgrid; align-content: start; }
+}
+/* the clause is contract text: serif, left-aligned at card width */
+.case-card .excerpt-body { font-family: var(--serif); font-size: 15.5px; line-height: 1.5; }
+/* the deal information Jev read beside the clause */
+/* three lines of the request and response: the decisive fact sent, the question asked, and Jev's
+   answer against the correct one. Labels in a narrow column; long values wrap under themselves. */
+.req { position: relative; display: grid; align-content: start; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 1.5ch; margin: 12px 0 12px; padding: 9px 10px 10px; border-radius: 3px; background: var(--panel); font-family: var(--mono); font-size: 12px; line-height: 1.5; color: var(--ink); overflow-wrap: anywhere; }
+.req.pad { background: var(--pad); border-radius: 0; padding: 0 10px; row-gap: 0; margin-top: 14px; }
+.req.pad > .req-key, .req.pad > .req-val { padding: 5px 0; border-bottom: 1px solid var(--pad-rule); }
+.req.pad > .req-key { padding-right: 1ch; border-right: 1px solid var(--pad-col); }
+.req.pad > :nth-last-child(-n + 2) { border-bottom: 0; }
+.req-key { color: var(--pencil); }
+.req-val { min-width: 0; }
+.req-k { color: var(--graphite); }
+.req-answer { display: flex; flex-wrap: wrap; gap: 0 3ch; }
+.req-jev { font-weight: 600; }
+.req-jev.is-wrong { color: var(--accent); }
+.req-gold { color: var(--ink); }
+.case-note { font-family: var(--sans); font-size: 13px; line-height: 1.4; color: var(--graphite); font-style: italic; margin: 0 0 8px; }
+.case-why { font-size: 14.5px; line-height: 1.5; color: var(--graphite); margin: 0; }
+/* each card as it scrolls in: the request's rule draws, its rows arrive in order, then the why.
+   Side by side, the second card follows the first by --lag. */
+.verdict-card { --lag: 0ms; }
+.verdict-card + .verdict-card { --lag: 160ms; }
+.verdict-card[data-reveal="pre"] .req::before { transform: scaleX(0); }
+.verdict-card[data-reveal="pre"] .req > *, .verdict-card[data-reveal="pre"] .case-why { opacity: 0; transform: translateY(8px); }
+.verdict-card[data-reveal="in"] .req::before { transition: transform 480ms var(--draw) var(--lag); }
+.verdict-card[data-reveal="in"] .req > * { transition: opacity 300ms var(--ease) calc(360ms + var(--lag)), transform 300ms var(--ease) calc(360ms + var(--lag)); }
+.verdict-card[data-reveal="in"] .req > :nth-child(n + 3) { transition-delay: calc(460ms + var(--lag)); }
+.verdict-card[data-reveal="in"] .req > :nth-child(n + 5) { transition-delay: calc(560ms + var(--lag)); }
+.verdict-card[data-reveal="in"] .req > :nth-child(n + 7) { transition-delay: calc(660ms + var(--lag)); }
+.verdict-card[data-reveal="in"] .case-why { transition: opacity 420ms var(--ease) calc(820ms + var(--lag)), transform 420ms var(--ease) calc(820ms + var(--lag)); }
+.honest { font-family: var(--sans); font-size: 15px; color: var(--graphite); margin: 36px 0 0; max-width: 620px; }
+.honest .link-pending, .honest a { white-space: nowrap; }
+
+/* ---------- 6. Data ---------- */
+/* One training pair as two contract excerpts side by side (stacked on phones). Each side is a Reveal:
+   the excerpt rises in, the reviewer's pen underlines the deciding words and draws into the label,
+   then the label appears. The right side follows the left by --lag. The pen geometry comes from
+   motion.tsx (drawPen); its strokes share frame 1's .pen styles. */
+.pair-lead { position: relative; margin: 44px 0 0; padding-top: 14px; font-family: var(--sans); font-size: 15px; font-weight: 600; line-height: 1.45; color: var(--ink); }
+.pair-lead[data-reveal="pre"]::before { transform: scaleX(0); }
+.pair-lead[data-reveal="in"]::before { transition: transform 480ms var(--draw); }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto; column-gap: 64px; row-gap: 18px; margin-top: 26px; }
+.pair-side { --lag: 0ms; position: relative; display: grid; grid-row: span 2; grid-template-rows: subgrid; align-items: start; }
+.pair-side + .pair-side { --lag: 140ms; }
+.pair-side .excerpt { align-self: stretch; }
+/* short justified clauses: let the browser balance the last lines so no line stretches wide */
+.pair-side .excerpt-body { text-wrap: pretty; }
+.pair-label { justify-self: start; margin: 0; padding: 5px 12px 6px; border: 1px solid var(--graphite); border-radius: 3px; font-family: var(--sans); font-size: 14px; line-height: 1.45; color: var(--ink); }
+.pair-label strong { font-weight: 600; }
+.pair-label-key { font-weight: 400; color: var(--graphite); }
+.pair-label.is-yes { border-color: var(--accent); color: var(--accent); }
+.pair-evidence { font-family: var(--sans); font-size: 15px; line-height: 1.5; color: var(--graphite); margin: 28px 0 0; max-width: 620px; }
+.honest.pair-close { margin-top: 22px; }
+
+/* A dash, then a gap twice the path's length: undrawn at an offset just past 1, no dash ends on the
+   path, so round caps leave no dots before the stroke starts. */
+.pair-side .pen path { stroke-dasharray: 1 2; }
+.pair-side[data-reveal="pre"] { transform: translateY(12px); }
+.pair-side[data-reveal="pre"] .excerpt, .pair-side[data-reveal="pre"] .pair-label { opacity: 0; }
+.pair-side[data-reveal="pre"] .pen path { stroke-dashoffset: 1.02; }
+.pair-side[data-reveal="pre"] .pen-phrase { background-color: transparent; }
+.pair-side[data-reveal="in"] { transition: transform 520ms var(--ease) var(--lag); }
+.pair-side[data-reveal="in"] .excerpt { transition: opacity 400ms ease-out var(--lag); }
+.pair-side[data-reveal="in"] .pen-line { transition: stroke-dashoffset 460ms cubic-bezier(0.5, 0, 0.2, 1) calc(440ms + var(--lag)); }
+.pair-side[data-reveal="in"] .pen-phrase { transition: background-color 360ms ease-out calc(600ms + var(--lag)); }
+.pair-side[data-reveal="in"] .pen-link { transition: stroke-dashoffset 420ms cubic-bezier(0.45, 0, 0.25, 1) calc(800ms + var(--lag)); }
+.pair-side[data-reveal="in"] .pair-label { transition: opacity 320ms ease-out calc(1160ms + var(--lag)); }
+
+/* Figure D, when shown (SHOW_FIGURE_D in figure-config.ts) */
+.pair-figure { margin-top: 36px; max-width: 560px; }
+.pair-figure .figure-slot { overflow: visible; }
+
+/* The price line (components/price-line.tsx): not on the page now, kept for later. */
+.pair-wrap { margin-top: 36px; border-top: 2px solid var(--rule-strong); padding: 0 24px; }
+.price { font-family: var(--sans); padding-top: 64px; }
+.price-plot { position: relative; height: 24px; }
+.price-axis { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #b9bec9; }
+.price-band { position: absolute; top: 0; bottom: 0; left: calc(var(--a) * 100%); width: calc((var(--b) - var(--a)) * 100%); background: var(--wash); box-shadow: inset 0 0 0 1px #d2d6de; border-radius: 2px; }
+.price-layer { position: absolute; inset: 0; transform: translateX(calc((var(--x) - 1) * 100%)); pointer-events: none; }
+.price-dot { position: absolute; left: 100%; top: 50%; width: 16px; height: 16px; border-radius: 50%; transform: translate(-50%, -50%); background: var(--accent); box-shadow: 0 0 0 2px var(--paper); }
+.price-dot.hollow { background: var(--paper); box-shadow: inset 0 0 0 2px var(--accent-light); }
+.price-label { position: absolute; left: 100%; bottom: calc(100% + 10px); transform: translateX(-50%); display: grid; justify-items: center; white-space: nowrap; line-height: 1.3; }
+.price-label b { font-size: 15px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.price-label > span { font-size: 13.5px; color: var(--graphite); }
+.price-mover .price-label b, .price-mover .price-label > span { color: var(--accent); font-weight: 600; }
+.flip { display: grid; justify-items: center; }
+.flip > span { grid-area: 1 / 1; }
+.flip-a { opacity: 0; }
+.price-ticks { position: relative; height: 18px; margin-top: 10px; font-size: 12px; color: var(--pencil); }
+.price-ticks i { position: absolute; transform: translateX(-50%); font-style: normal; font-variant-numeric: tabular-nums; }
+.price-key { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--graphite); margin: 14px 0 0 -24px; }
+.sw-band { width: 18px; height: 12px; border-radius: 2px; background: var(--wash); box-shadow: inset 0 0 0 1px #d2d6de; flex: none; }
+
+.pair-wrap[data-reveal="pre"] .price-mover { transform: translateX(calc((var(--from) - 1) * 100%)); }
+.pair-wrap[data-reveal="pre"] .price-ghost { opacity: 0; }
+.pair-wrap[data-reveal="pre"] .flip-a { opacity: 1; }
+.pair-wrap[data-reveal="pre"] .flip-b { opacity: 0; }
+.pair-wrap[data-reveal="in"] .price-mover { transition: transform 700ms var(--ease) 250ms; }
+.pair-wrap[data-reveal="in"] .flip > span { transition: opacity 220ms ease-out 330ms; }
+.pair-wrap[data-reveal="in"] .price-ghost { transition: opacity 400ms ease-out 850ms; }
+
+/* ---------- footer ---------- */
+.site-footer { margin-top: var(--rhythm); background: var(--panel); border-top: 1px solid var(--rule); }
+.footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 48px; padding-top: 28px; padding-bottom: 36px; font-family: var(--sans); font-size: 14px; line-height: 1.55; color: var(--graphite); }
+.footer-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 24px; }
+.footer-note { margin: 8px 0 0; }
+.footer-meta { text-align: right; }
+.footer-author { margin: 0; color: var(--ink); font-weight: 600; }
+.credit { margin: 2px 0 0; font-size: 12.5px; color: var(--pencil); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  /* stacked: the intro scrolls normally and only the figure and excerpt pin, so they always fit */
+  .scene-grid { display: block; padding-top: 40px; }
+  .scene-intro { margin-bottom: 28px; }
+  .scene-focus { display: block; position: relative; }
+  .scene-figure { max-width: 520px; }
+  .scene .scene-counter { text-align: right; }
+  .scene-callout { margin-top: 20px; }
+  .motion .scene-pin { position: relative; height: 100%; min-height: 0; display: block; }
+  .motion .scene-grid { height: 100%; }
+  .motion .scene-focus { position: sticky; top: 0; margin: 0 calc(var(--gutter) * -1); padding: 14px var(--gutter); background: var(--paper); }
+  .frame-test, .knowledge { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .frame-expert { grid-template-areas: "head" "side" "lever" "stakes"; row-gap: 0; }
+  .frame-expert > .progress { margin-top: 32px; }
+  .frame-expert > .lever { margin-top: 56px; }
+  .frame-expert > .stakes { margin-top: 48px; }
+  /* frame 2 stacked: the figure, its note, then the cards in one column. With motion, only the
+     figure pins (at the top), and each card switches on as it scrolls into view below it. */
+  .fits { display: block; }
+  .fits-figure { max-width: 520px; }
+  .fits .flags { grid-template-columns: minmax(0, 1fr); max-width: 560px; margin-top: 28px; }
+  .motion .scan .scan-stage { position: static; background: none; }
+  .motion .scan .scan-runway { height: 0; }
+  .motion .scan .fits-figure { position: sticky; top: 0; z-index: 3; max-width: none; margin: 0 calc(var(--gutter) * -1); padding: 8px var(--gutter) 4px; background: var(--paper); }
+  .motion .scan .fits-figure .figure-slot { max-width: 420px; margin: 0 auto; }
+  .motion .scan .fits-figure::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px; background: linear-gradient(var(--paper), rgba(255, 255, 255, 0)); pointer-events: none; }
+  .pair { column-gap: 40px; }
+  .knowledge { gap: 28px; }
+}
+@media (max-width: 760px) {
+  /* the pair stacks: each side is its excerpt, then its label */
+  .pair { display: flex; flex-direction: column; gap: 40px; max-width: 560px; }
+  .pair-side { display: flex; flex-direction: column; gap: 16px; }
+  .pair-label { align-self: flex-start; }
+}
+@media (max-width: 640px) {
+  :root { --gutter: 20px; --rhythm: 88px; }
+  body { font-size: 18px; }
+  .masthead .wrap { flex-direction: column; gap: 2px; }
+  .motion .scene { height: 270svh; }
+  .scene-grid { padding-top: 24px; padding-bottom: 16px; row-gap: 16px; }
+  .scene-figure { max-width: 300px; }
+  h1 { font-size: 32px; margin-bottom: 14px; }
+  h2 { font-size: 28px; }
+  .standfirst { font-size: 17.5px; margin-bottom: 10px; }
+  .excerpt { padding: 10px 14px 13px; }
+  .excerpt-body { font-size: 16px; }
+  .callout-line { font-size: 14px; }
+  .scene-intro.reg { --o: -12px -10px -10px -10px; }
+  .flags { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .case-cards { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .footer-meta { text-align: left; }
+  .req { font-size: 10.5px; padding: 8px 8px 9px; column-gap: 1ch; }
+  .progress-label { font-size: 14px; }
+  .range-row, .range-axis { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .range-axis > span:first-child { display: none; }
+  .pair-wrap { padding: 0 16px; }
+  .pair-lead { margin-top: 36px; }
+  .price-key { margin-left: -16px; }
+  .price-ticks i.minor { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

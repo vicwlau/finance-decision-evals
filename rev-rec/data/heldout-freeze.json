@@ -1,0 +1,50 @@
+{
+  "frozen_at": "2026-10-03T23:40:31.303Z",
+  "sha256": "0e20378cb97f26b950d557a18771673facf6863af56dbf78ee036a3a464d24c3",
+  "count": 20,
+  "method": "SHA-256 of the split:heldout lines of rev-rec/data/cases.jsonl as stored, in file order, each ending in a newline. Reproduce: grep '\"split\":\"heldout\"' rev-rec/data/cases.jsonl | shasum -a 256",
+  "slices": {
+    "unnamed_by_v2": {
+      "note": "Patterns no v2 question names (handoff, 2026-10-03): the clean test of whether v2's rule questions generalize.",
+      "ids": [
+        "rr-f1-h02",
+        "rr-f1-h03",
+        "rr-f2-h02",
+        "rr-f2-h05",
+        "rr-f3-h03",
+        "rr-f3-h05",
+        "rr-f4-h02",
+        "rr-f4-h04"
+      ]
+    },
+    "named_by_v2": {
+      "note": "Traps a v2 question names: the v2 trigger names f2-h03's; the modification rule half-names f4-h03's.",
+      "ids": [
+        "rr-f2-h03",
+        "rr-f4-h03"
+      ]
+    }
+  },
+  "approvals_at_freeze": {
+    "rr-f1-h01": "agent:claude-opus-5-5",
+    "rr-f1-h02": "agent:claude-opus-5-5",
+    "rr-f1-h03": "agent:claude-opus-5-5",
+    "rr-f1-h04": "agent:claude-opus-5-5",
+    "rr-f1-h05": "agent:claude-opus-5-5",
+    "rr-f2-h01": "agent:claude-opus-5-5",
+    "rr-f2-h02": "agent:claude-opus-5-5",
+    "rr-f2-h03": "agent:claude-opus-5-5",
+    "rr-f2-h04": "agent:claude-opus-5-5",
+    "rr-f2-h05": "agent:claude-opus-5-5",
+    "rr-f3-h01": "agent:claude-opus-5-5",
+    "rr-f3-h02": "agent:claude-opus-5-5",
+    "rr-f3-h03": "agent:claude-opus-5-5",
+    "rr-f3-h04": "agent:claude-opus-5-5",
+    "rr-f3-h05": "agent:claude-opus-5-5",
+    "rr-f4-h01": "agent:claude-opus-5-5",
+    "rr-f4-h02": "agent:claude-opus-5-5",
+    "rr-f4-h03": "owner",
+    "rr-f4-h04": "agent:claude-opus-5-5",
+    "rr-f4-h05": "agent:claude-opus-5-5"
+  }
+}

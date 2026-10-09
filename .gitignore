@@ -1,0 +1,14 @@
+.DS_Store
+.env*
+.venv/
+__pycache__/
+runs/**/raw/
+*/runs/**/raw/
+node_modules/
+.next/
+.vercel/
+*.tsbuildinfo
+**/runs/**/raw/
+
+# UI comments from the site's dev-only comment tool
+docs/feedback/

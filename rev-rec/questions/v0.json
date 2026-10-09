@@ -1,0 +1,52 @@
+{
+  "version": "v0",
+  "notes": "Draft question set. The state is {clause, context}. One Noul for the overall trigger, one Noul per in-scope consideration, one Choice for the primary consideration. Rewrite criteria on dev only.",
+  "considerations": ["material_right", "variable_consideration", "refund_return", "financing_component", "contract_modification", "termination_convenience"],
+  "questions": {
+    "trigger": {
+      "type": "noul",
+      "instructions": "Does `clause`, read together with `context`, contain a non-standard term that requires a revenue accounting review under ASC 606?",
+      "criteria": {
+        "true": "The term could change how much revenue is recognized or when: for example refund rights, credits or penalties beyond the standard SLA, options priced below standalone selling price, payment more than a year from delivery, or a change to an existing contract.",
+        "false": "The term follows standard terms or is priced within standalone selling price, so no revenue accounting review is needed."
+      }
+    },
+    "material_right": {
+      "type": "noul",
+      "instructions": "Does `clause` give the customer an option to buy additional goods or services at a price below the standalone selling price stated in `context`?"
+    },
+    "variable_consideration": {
+      "type": "noul",
+      "instructions": "Does `clause` make the amount the customer pays depend on a future event, such as service credits beyond the standard SLA in `context`, a performance guarantee, or a penalty?"
+    },
+    "refund_return": {
+      "type": "noul",
+      "instructions": "Does `clause` give the customer a right to get cash back for fees it has paid?"
+    },
+    "financing_component": {
+      "type": "noul",
+      "instructions": "Does `clause` set payment timing so that more than one year separates when the customer receives the service and when it pays, as described in `context`?"
+    },
+    "contract_modification": {
+      "type": "noul",
+      "instructions": "Does `clause` change, replace, or terminate an existing contract with this customer and carry value from it into the new terms, rather than only adding a separate purchase at standalone selling price?"
+    },
+    "termination_convenience": {
+      "type": "noul",
+      "instructions": "Can the customer end the contract early for a reason other than the vendor's breach, without paying a substantive penalty?"
+    },
+    "primary": {
+      "type": "choice",
+      "instructions": "Which ASC 606 consideration does `clause`, read together with `context`, mainly raise?",
+      "criteria": {
+        "material_right": "An option to buy more goods or services at a discount the customer would not otherwise get",
+        "variable_consideration": "The amount the customer pays can change with future events such as credits, guarantees, or penalties",
+        "refund_return": "The customer can get cash back for fees paid",
+        "financing_component": "More than a year separates delivery and payment",
+        "contract_modification": "An existing contract is changed, replaced, or terminated early",
+        "termination_convenience": "The customer can end the contract early without a substantive penalty",
+        "none": "Standard terms; no ASC 606 consideration"
+      }
+    }
+  }
+}

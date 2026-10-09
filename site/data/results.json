@@ -1,0 +1,1501 @@
+{
+  "generatedAt": "2026-10-08T00:39:44.204Z",
+  "source": "rev-rec/runs (v2), rev-rec/data/cases.jsonl, rev-rec/data/training-examples.jsonl",
+  "run": {
+    "model": "jev-1.13.0",
+    "questionSet": "v2",
+    "questionsPerCase": 13,
+    "repeats": 3,
+    "heldoutCases": 20,
+    "devCases": 17,
+    "families": 4,
+    "heldoutCalls": 180,
+    "heldoutCostUsd": 0.0076,
+    "heldoutSha256": "0e20378cb97f26b950d557a18771673facf6863af56dbf78ee036a3a464d24c3"
+  },
+  "questions": {
+    "trigger": {
+      "type": "noul",
+      "instructions": "Does this deal need a revenue accounting review because `clause` departs from the vendor's standard terms in a way that could change how much revenue is recognized or when?"
+    },
+    "material_right": {
+      "type": "noul",
+      "instructions": "Does `clause` give the customer an option to buy additional goods or services at a price below the standalone selling price stated in the deal information?"
+    },
+    "variable_consideration": {
+      "type": "noul",
+      "instructions": "Does `clause` make the amount the customer pays depend on a future event, such as service credits, refunds, a performance guarantee, or a penalty?"
+    },
+    "refund_return": {
+      "type": "noul",
+      "instructions": "Does `clause` give the customer a right to get cash back for fees it has paid?"
+    },
+    "financing_component": {
+      "type": "noul",
+      "instructions": "Under `clause`, does more than one year separate when the customer receives the service and when it pays, in either direction?"
+    },
+    "contract_modification": {
+      "type": "noul",
+      "instructions": "Does `clause` change the scope or price of an existing contract with this customer, for example by adding purchased goods or services, replacing it, or terminating it early? An option to buy more later is not a change, and a new contract that starts when the old one expires is not a change."
+    },
+    "termination_convenience": {
+      "type": "noul",
+      "instructions": "Can the customer end the contract early for a reason other than the vendor's breach, without paying a substantive penalty?"
+    },
+    "material_right_concept": {
+      "type": "noul",
+      "instructions": "Read with the deal information: under ASC 606, does `clause` give the customer a material right?"
+    },
+    "variable_consideration_concept": {
+      "type": "noul",
+      "instructions": "Read with the deal information: under ASC 606, does `clause` involve variable consideration?"
+    },
+    "refund_return_concept": {
+      "type": "noul",
+      "instructions": "Read with the deal information: under ASC 606, does `clause` give the customer a right of refund?"
+    },
+    "financing_component_concept": {
+      "type": "noul",
+      "instructions": "Read with the deal information: under ASC 606, does `clause` raise the question of a significant financing component?"
+    },
+    "contract_modification_concept": {
+      "type": "noul",
+      "instructions": "Read with the deal information: under ASC 606, is `clause` a contract modification?"
+    },
+    "termination_convenience_concept": {
+      "type": "noul",
+      "instructions": "Read with the deal information: under ASC 606, does `clause` give the customer a right to terminate for convenience?"
+    }
+  },
+  "heldoutTrigger": [
+    {
+      "id": "rr-f1-h01",
+      "family": "F1",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f1-h02",
+      "family": "F1",
+      "runs": 3,
+      "right": 1
+    },
+    {
+      "id": "rr-f1-h03",
+      "family": "F1",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f1-h04",
+      "family": "F1",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f1-h05",
+      "family": "F1",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f2-h01",
+      "family": "F2",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f2-h02",
+      "family": "F2",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f2-h03",
+      "family": "F2",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f2-h04",
+      "family": "F2",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f2-h05",
+      "family": "F2",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f3-h01",
+      "family": "F3",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f3-h02",
+      "family": "F3",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f3-h03",
+      "family": "F3",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f3-h04",
+      "family": "F3",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f3-h05",
+      "family": "F3",
+      "runs": 3,
+      "right": 1
+    },
+    {
+      "id": "rr-f4-h01",
+      "family": "F4",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f4-h02",
+      "family": "F4",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f4-h03",
+      "family": "F4",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f4-h04",
+      "family": "F4",
+      "runs": 3,
+      "right": 3
+    },
+    {
+      "id": "rr-f4-h05",
+      "family": "F4",
+      "runs": 3,
+      "right": 3
+    }
+  ],
+  "heldoutFrozenAt": "2026-10-03T23:40:31.303Z",
+  "grid": {
+    "heldout": {
+      "prose": {
+        "trigger": {
+          "accuracy": 0.933,
+          "brier": 0.071,
+          "n": 60
+        },
+        "rule": {
+          "accuracy": 0.939,
+          "brier": 0.058,
+          "n": 360
+        },
+        "concept": {
+          "accuracy": 0.892,
+          "brier": 0.094,
+          "n": 360
+        }
+      },
+      "structured": {
+        "trigger": {
+          "accuracy": 0.933,
+          "brier": 0.082,
+          "n": 60
+        },
+        "rule": {
+          "accuracy": 0.914,
+          "brier": 0.065,
+          "n": 360
+        },
+        "concept": {
+          "accuracy": 0.878,
+          "brier": 0.094,
+          "n": 360
+        }
+      },
+      "computed": {
+        "trigger": {
+          "accuracy": 1,
+          "brier": 0.043,
+          "n": 60
+        },
+        "rule": {
+          "accuracy": 0.942,
+          "brier": 0.053,
+          "n": 360
+        },
+        "concept": {
+          "accuracy": 0.872,
+          "brier": 0.096,
+          "n": 360
+        }
+      }
+    },
+    "dev": {
+      "prose": {
+        "trigger": {
+          "accuracy": 0.765,
+          "brier": 0.119,
+          "n": 51
+        },
+        "rule": {
+          "accuracy": 0.98,
+          "brier": 0.039,
+          "n": 306
+        },
+        "concept": {
+          "accuracy": 0.856,
+          "brier": 0.098,
+          "n": 306
+        }
+      },
+      "structured": {
+        "trigger": {
+          "accuracy": 0.882,
+          "brier": 0.116,
+          "n": 51
+        },
+        "rule": {
+          "accuracy": 0.977,
+          "brier": 0.042,
+          "n": 306
+        },
+        "concept": {
+          "accuracy": 0.859,
+          "brier": 0.102,
+          "n": 306
+        }
+      },
+      "computed": {
+        "trigger": {
+          "accuracy": 0.922,
+          "brier": 0.075,
+          "n": 51
+        },
+        "rule": {
+          "accuracy": 0.987,
+          "brier": 0.033,
+          "n": 306
+        },
+        "concept": {
+          "accuracy": 0.853,
+          "brier": 0.093,
+          "n": 306
+        }
+      }
+    }
+  },
+  "byConsideration": {
+    "material_right": {
+      "prose": {
+        "rule": {
+          "accuracy": 0.95,
+          "brier": 0.048,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.75,
+          "brier": 0.17,
+          "n": 60
+        }
+      },
+      "structured": {
+        "rule": {
+          "accuracy": 0.85,
+          "brier": 0.109,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.75,
+          "brier": 0.169,
+          "n": 60
+        }
+      },
+      "computed": {
+        "rule": {
+          "accuracy": 0.85,
+          "brier": 0.091,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.7,
+          "brier": 0.174,
+          "n": 60
+        }
+      }
+    },
+    "variable_consideration": {
+      "prose": {
+        "rule": {
+          "accuracy": 0.9,
+          "brier": 0.069,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.9,
+          "brier": 0.106,
+          "n": 60
+        }
+      },
+      "structured": {
+        "rule": {
+          "accuracy": 0.9,
+          "brier": 0.064,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.833,
+          "brier": 0.117,
+          "n": 60
+        }
+      },
+      "computed": {
+        "rule": {
+          "accuracy": 0.9,
+          "brier": 0.057,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.867,
+          "brier": 0.116,
+          "n": 60
+        }
+      }
+    },
+    "refund_return": {
+      "prose": {
+        "rule": {
+          "accuracy": 1,
+          "brier": 0.008,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 1,
+          "brier": 0.027,
+          "n": 60
+        }
+      },
+      "structured": {
+        "rule": {
+          "accuracy": 1,
+          "brier": 0.008,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 1,
+          "brier": 0.027,
+          "n": 60
+        }
+      },
+      "computed": {
+        "rule": {
+          "accuracy": 1,
+          "brier": 0.009,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 1,
+          "brier": 0.027,
+          "n": 60
+        }
+      }
+    },
+    "financing_component": {
+      "prose": {
+        "rule": {
+          "accuracy": 0.85,
+          "brier": 0.111,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.85,
+          "brier": 0.14,
+          "n": 60
+        }
+      },
+      "structured": {
+        "rule": {
+          "accuracy": 0.85,
+          "brier": 0.104,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.833,
+          "brier": 0.151,
+          "n": 60
+        }
+      },
+      "computed": {
+        "rule": {
+          "accuracy": 1,
+          "brier": 0.048,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.817,
+          "brier": 0.156,
+          "n": 60
+        }
+      }
+    },
+    "contract_modification": {
+      "prose": {
+        "rule": {
+          "accuracy": 0.933,
+          "brier": 0.083,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.85,
+          "brier": 0.12,
+          "n": 60
+        }
+      },
+      "structured": {
+        "rule": {
+          "accuracy": 0.883,
+          "brier": 0.08,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.85,
+          "brier": 0.098,
+          "n": 60
+        }
+      },
+      "computed": {
+        "rule": {
+          "accuracy": 0.9,
+          "brier": 0.084,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 0.85,
+          "brier": 0.103,
+          "n": 60
+        }
+      }
+    },
+    "termination_convenience": {
+      "prose": {
+        "rule": {
+          "accuracy": 1,
+          "brier": 0.027,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 1,
+          "brier": 0.002,
+          "n": 60
+        }
+      },
+      "structured": {
+        "rule": {
+          "accuracy": 1,
+          "brier": 0.028,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 1,
+          "brier": 0.002,
+          "n": 60
+        }
+      },
+      "computed": {
+        "rule": {
+          "accuracy": 1,
+          "brier": 0.03,
+          "n": 60
+        },
+        "concept": {
+          "accuracy": 1,
+          "brier": 0.002,
+          "n": 60
+        }
+      }
+    }
+  },
+  "cases": {
+    "rr-f3-h02": {
+      "means": {
+        "prose": {
+          "trigger": 0.613,
+          "material_right": 0.02,
+          "variable_consideration": 0.04,
+          "refund_return": 0.03,
+          "financing_component": 0.253,
+          "contract_modification": 0.103,
+          "termination_convenience": 0.153,
+          "material_right_concept": 0.313,
+          "variable_consideration_concept": 0.123,
+          "refund_return_concept": 0.077,
+          "financing_component_concept": 0.767,
+          "contract_modification_concept": 0.16,
+          "termination_convenience_concept": 0.043
+        },
+        "structured": {
+          "trigger": 0.587,
+          "material_right": 0.02,
+          "variable_consideration": 0.04,
+          "refund_return": 0.03,
+          "financing_component": 0.24,
+          "contract_modification": 0.14,
+          "termination_convenience": 0.153,
+          "material_right_concept": 0.277,
+          "variable_consideration_concept": 0.12,
+          "refund_return_concept": 0.073,
+          "financing_component_concept": 0.77,
+          "contract_modification_concept": 0.19,
+          "termination_convenience_concept": 0.04
+        },
+        "computed": {
+          "trigger": 0.71,
+          "material_right": 0.02,
+          "variable_consideration": 0.04,
+          "refund_return": 0.037,
+          "financing_component": 0.72,
+          "contract_modification": 0.093,
+          "termination_convenience": 0.183,
+          "material_right_concept": 0.237,
+          "variable_consideration_concept": 0.103,
+          "refund_return_concept": 0.103,
+          "financing_component_concept": 0.83,
+          "contract_modification_concept": 0.127,
+          "termination_convenience_concept": 0.05
+        }
+      },
+      "family": "F3",
+      "clause": "Payment. The license fee is payable in eighteen (18) equal monthly installments of $50,000, the first due on the delivery date.",
+      "context": "Customer based in the United States. Perpetual software license for $900,000, delivered and transferred at signing. The vendor's standard payment terms are net 30 in North America; net 90 to 120 days is customary for its customers in Japan.",
+      "facts": {
+        "term_type": "installments",
+        "license_fee_usd": 900000,
+        "installments": 18,
+        "installment_usd": 50000,
+        "months_transfer_to_last_payment": 17,
+        "standard_payment_terms": {
+          "north_america": "net 30",
+          "japan": "net 90-120 (customary)"
+        }
+      },
+      "deal": {
+        "customer_location": "United States",
+        "subscription": "perpetual software license, $900,000",
+        "service_delivery": "license delivered and transferred at signing",
+        "vendor_standard_payment_terms": {
+          "north_america": "net 30",
+          "japan": "net 90-120 (customary)"
+        }
+      },
+      "computed": {
+        "longest_gap_between_service_and_payment": "17 months (last installment after the license is transferred)"
+      },
+      "gold": {
+        "trigger": true,
+        "considerations": [
+          "financing_component"
+        ],
+        "primary": "none"
+      }
+    },
+    "rr-f2-h04": {
+      "means": {
+        "prose": {
+          "trigger": 0.823,
+          "material_right": 0.02,
+          "variable_consideration": 0.587,
+          "refund_return": 0.677,
+          "financing_component": 0.17,
+          "contract_modification": 0.183,
+          "termination_convenience": 0.2,
+          "material_right_concept": 0.34,
+          "variable_consideration_concept": 0.673,
+          "refund_return_concept": 0.573,
+          "financing_component_concept": 0.437,
+          "contract_modification_concept": 0.367,
+          "termination_convenience_concept": 0.027
+        },
+        "structured": {
+          "trigger": 0.817,
+          "material_right": 0.02,
+          "variable_consideration": 0.58,
+          "refund_return": 0.653,
+          "financing_component": 0.197,
+          "contract_modification": 0.18,
+          "termination_convenience": 0.183,
+          "material_right_concept": 0.403,
+          "variable_consideration_concept": 0.653,
+          "refund_return_concept": 0.553,
+          "financing_component_concept": 0.453,
+          "contract_modification_concept": 0.263,
+          "termination_convenience_concept": 0.03
+        },
+        "computed": {
+          "trigger": 0.84,
+          "material_right": 0.02,
+          "variable_consideration": 0.657,
+          "refund_return": 0.643,
+          "financing_component": 0.197,
+          "contract_modification": 0.23,
+          "termination_convenience": 0.19,
+          "material_right_concept": 0.55,
+          "variable_consideration_concept": 0.673,
+          "refund_return_concept": 0.547,
+          "financing_component_concept": 0.473,
+          "contract_modification_concept": 0.393,
+          "termination_convenience_concept": 0.03
+        }
+      },
+      "family": "F2",
+      "clause": "Service Credits. Service credits accrued under the SLA that remain unused at the end of the Term will be paid to Customer in cash within thirty (30) days.",
+      "context": "Customer: enterprise customer. Three-year SaaS subscription at $480,000 per year, billed annually in advance. The vendor's standard SLA gives service credits of up to 10% of the monthly fee, applied against future invoices.",
+      "facts": {
+        "term_type": "credit_cash_out",
+        "standard_cap_pct": 0.1,
+        "cash_option": true
+      },
+      "deal": {
+        "customer": "enterprise",
+        "subscription": "Three-year SaaS subscription at $480,000 per year, billed annually in advance.",
+        "standard_sla": "service credits of up to 10% of the monthly fee, applied against future invoices"
+      },
+      "computed": {
+        "sla_vs_standard": [
+          "unused credits paid in cash at the end of the term, vs credits only in the standard SLA"
+        ]
+      },
+      "gold": {
+        "trigger": true,
+        "considerations": [
+          "variable_consideration",
+          "refund_return"
+        ],
+        "primary": "none"
+      }
+    },
+    "rr-f1-h01": {
+      "means": {
+        "prose": {
+          "trigger": 0.57,
+          "material_right": 0.94,
+          "variable_consideration": 0.327,
+          "refund_return": 0.02,
+          "financing_component": 0.25,
+          "contract_modification": 0.177,
+          "termination_convenience": 0.153,
+          "material_right_concept": 0.503,
+          "variable_consideration_concept": 0.573,
+          "refund_return_concept": 0.053,
+          "financing_component_concept": 0.283,
+          "contract_modification_concept": 0.25,
+          "termination_convenience_concept": 0.04
+        },
+        "structured": {
+          "trigger": 0.483,
+          "material_right": 0.95,
+          "variable_consideration": 0.25,
+          "refund_return": 0.02,
+          "financing_component": 0.207,
+          "contract_modification": 0.147,
+          "termination_convenience": 0.157,
+          "material_right_concept": 0.587,
+          "variable_consideration_concept": 0.653,
+          "refund_return_concept": 0.05,
+          "financing_component_concept": 0.367,
+          "contract_modification_concept": 0.267,
+          "termination_convenience_concept": 0.04
+        },
+        "computed": {
+          "trigger": 0.65,
+          "material_right": 0.967,
+          "variable_consideration": 0.207,
+          "refund_return": 0.02,
+          "financing_component": 0.21,
+          "contract_modification": 0.183,
+          "termination_convenience": 0.177,
+          "material_right_concept": 0.65,
+          "variable_consideration_concept": 0.64,
+          "refund_return_concept": 0.057,
+          "financing_component_concept": 0.3,
+          "contract_modification_concept": 0.267,
+          "termination_convenience_concept": 0.04
+        }
+      },
+      "family": "F1",
+      "clause": "Additional Tokens. At any time during the Term, Customer may order additional tokens, in increments of 50B, at $1.25 per 1M tokens.",
+      "context": "Customer: enterprise AI platform customer on a three-year term. Prepaid commitment: 2,400B tokens over the term for $5,400,000 ($2.25 per 1M tokens). Standalone selling price (SSP) for committed tokens for customers of this size: $2.10 to $2.40 per 1M tokens. List price: $2.60 per 1M tokens.",
+      "facts": {
+        "term_years": 3,
+        "prepaid_tokens_b": 2400,
+        "prepaid_price_per_1m": 2.25,
+        "ssp_range_per_1m": [
+          2.1,
+          2.4
+        ],
+        "list_price_per_1m": 2.6,
+        "prepaid_fee_usd": 5400000,
+        "term_type": "add_on_option",
+        "add_on_price_per_1m": 1.25,
+        "add_on_increment_b": 50
+      },
+      "deal": {
+        "customer": "enterprise AI platform customer",
+        "term": "3 years",
+        "prepaid_commitment": "2,400B tokens for $5,400,000 ($2.25 per 1M tokens)",
+        "ssp_per_1m_tokens": "$2.10 to $2.40",
+        "list_price_per_1m_tokens": "$2.60"
+      },
+      "computed": {
+        "add_on_price_vs_ssp": "$1.25 per 1M tokens is 40% below the low end of the SSP range"
+      },
+      "gold": {
+        "trigger": true,
+        "considerations": [
+          "material_right"
+        ],
+        "primary": "none"
+      }
+    },
+    "rr-f4-h01": {
+      "means": {
+        "prose": {
+          "trigger": 0.827,
+          "material_right": 0.143,
+          "variable_consideration": 0.12,
+          "refund_return": 0.05,
+          "financing_component": 0.26,
+          "contract_modification": 0.943,
+          "termination_convenience": 0.15,
+          "material_right_concept": 0.523,
+          "variable_consideration_concept": 0.167,
+          "refund_return_concept": 0.197,
+          "financing_component_concept": 0.577,
+          "contract_modification_concept": 0.813,
+          "termination_convenience_concept": 0.063
+        },
+        "structured": {
+          "trigger": 0.837,
+          "material_right": 0.123,
+          "variable_consideration": 0.14,
+          "refund_return": 0.053,
+          "financing_component": 0.237,
+          "contract_modification": 0.957,
+          "termination_convenience": 0.16,
+          "material_right_concept": 0.463,
+          "variable_consideration_concept": 0.177,
+          "refund_return_concept": 0.207,
+          "financing_component_concept": 0.583,
+          "contract_modification_concept": 0.823,
+          "termination_convenience_concept": 0.067
+        },
+        "computed": {
+          "trigger": 0.84,
+          "material_right": 0.103,
+          "variable_consideration": 0.19,
+          "refund_return": 0.06,
+          "financing_component": 0.19,
+          "contract_modification": 0.963,
+          "termination_convenience": 0.163,
+          "material_right_concept": 0.437,
+          "variable_consideration_concept": 0.18,
+          "refund_return_concept": 0.183,
+          "financing_component_concept": 0.59,
+          "contract_modification_concept": 0.81,
+          "termination_convenience_concept": 0.063
+        }
+      },
+      "family": "F4",
+      "clause": "Early Renewal. Effective 1 March 2027, this Order Form terminates and replaces the Prior Order. The $500,000 of prepaid fees for the unused portion of the Prior Order is applied to this Order Form's first invoice. This Order Form has a 24-month term at 1,200B tokens per year for $2,280,000 per year.",
+      "context": "Prior Order: 3-year term from 1 September 2024 to 31 August 2027 for 1,500B tokens and $3,000,000, billed $1,000,000 annually in advance. As of 1 March 2027, 6 months remain, and $500,000 of the current year's fee covers that unused period. SSP for committed tokens: $2.00 to $2.20 per 1M tokens. The Prior Order has no option to buy additional tokens.",
+      "facts": {
+        "prior_term": [
+          "1 September 2024",
+          "31 August 2027"
+        ],
+        "prior_term_years": 3,
+        "prior_tokens_b": 1500,
+        "prior_fee_usd": 3000000,
+        "annual_fee_usd": 1000000,
+        "change_date": "1 March 2027",
+        "months_remaining": 6,
+        "unused_prepaid_usd": 500000,
+        "ssp_range_per_1m": [
+          2,
+          2.2
+        ],
+        "prior_order_add_on_option": false,
+        "term_type": "early_renewal",
+        "credit_usd": 500000,
+        "new_term_months": 24,
+        "new_tokens_b_per_year": 1200,
+        "new_annual_fee_usd": 2280000
+      },
+      "deal": {
+        "prior_order": {
+          "term": "1 September 2024 to 31 August 2027",
+          "tokens": "1,500B",
+          "fee": "$3,000,000, billed $1,000,000 annually in advance",
+          "add_on_option": "none"
+        },
+        "as_of": "1 March 2027",
+        "months_remaining_on_prior_order": 6,
+        "unused_prepaid_value": "$500,000",
+        "ssp_per_1m_tokens": "$2.00 to $2.20"
+      },
+      "computed": {
+        "change_timing": "6 months before the Prior Order ends",
+        "credit_carried_from_prior_order": "$500,000"
+      },
+      "gold": {
+        "trigger": true,
+        "considerations": [
+          "contract_modification"
+        ],
+        "primary": "none"
+      }
+    },
+    "rr-f3-h01": {
+      "means": {
+        "prose": {
+          "trigger": 0.16,
+          "material_right": 0.02,
+          "variable_consideration": 0.04,
+          "refund_return": 0.02,
+          "financing_component": 0.21,
+          "contract_modification": 0.05,
+          "termination_convenience": 0.2,
+          "material_right_concept": 0.237,
+          "variable_consideration_concept": 0.09,
+          "refund_return_concept": 0.063,
+          "financing_component_concept": 0.693,
+          "contract_modification_concept": 0.27,
+          "termination_convenience_concept": 0.03
+        },
+        "structured": {
+          "trigger": 0.137,
+          "material_right": 0.013,
+          "variable_consideration": 0.04,
+          "refund_return": 0.02,
+          "financing_component": 0.183,
+          "contract_modification": 0.063,
+          "termination_convenience": 0.18,
+          "material_right_concept": 0.247,
+          "variable_consideration_concept": 0.1,
+          "refund_return_concept": 0.083,
+          "financing_component_concept": 0.583,
+          "contract_modification_concept": 0.217,
+          "termination_convenience_concept": 0.03
+        },
+        "computed": {
+          "trigger": 0.143,
+          "material_right": 0.017,
+          "variable_consideration": 0.03,
+          "refund_return": 0.03,
+          "financing_component": 0.113,
+          "contract_modification": 0.073,
+          "termination_convenience": 0.21,
+          "material_right_concept": 0.23,
+          "variable_consideration_concept": 0.077,
+          "refund_return_concept": 0.117,
+          "financing_component_concept": 0.74,
+          "contract_modification_concept": 0.213,
+          "termination_convenience_concept": 0.037
+        }
+      },
+      "family": "F3",
+      "clause": "Payment Terms. Invoices are payable within ninety (90) days of the invoice date.",
+      "context": "Customer based in Japan. Subscription of $720,000 per year for two years, invoiced annually in advance at the start of each year. Service is delivered evenly over each year. The vendor's standard payment terms are net 30 in North America; net 90 to 120 days is customary for its customers in Japan.",
+      "facts": {
+        "term_type": "payment_terms",
+        "days_invoice_to_payment": 90,
+        "annual_fee_usd": 720000,
+        "standard_payment_terms": {
+          "north_america": "net 30",
+          "japan": "net 90-120 (customary)"
+        }
+      },
+      "deal": {
+        "customer_location": "Japan",
+        "subscription": "$720,000 per year for two years, invoiced annually in advance at the start of each year",
+        "service_delivery": "evenly over each year",
+        "vendor_standard_payment_terms": {
+          "north_america": "net 30",
+          "japan": "net 90-120 (customary)"
+        }
+      },
+      "computed": {
+        "longest_gap_between_service_and_payment": "about 9 months (payment is due 90 days into each 12-month service year, about 9 months before that 12-month service year's service ends)"
+      },
+      "gold": {
+        "trigger": false,
+        "considerations": [],
+        "primary": "none"
+      }
+    },
+    "rr-f4-h05": {
+      "means": {
+        "prose": {
+          "trigger": 0.77,
+          "material_right": 0.703,
+          "variable_consideration": 0.067,
+          "refund_return": 0.05,
+          "financing_component": 0.103,
+          "contract_modification": 0.647,
+          "termination_convenience": 0.133,
+          "material_right_concept": 0.697,
+          "variable_consideration_concept": 0.22,
+          "refund_return_concept": 0.11,
+          "financing_component_concept": 0.487,
+          "contract_modification_concept": 0.233,
+          "termination_convenience_concept": 0.047
+        },
+        "structured": {
+          "trigger": 0.797,
+          "material_right": 0.83,
+          "variable_consideration": 0.063,
+          "refund_return": 0.043,
+          "financing_component": 0.093,
+          "contract_modification": 0.743,
+          "termination_convenience": 0.137,
+          "material_right_concept": 0.68,
+          "variable_consideration_concept": 0.243,
+          "refund_return_concept": 0.107,
+          "financing_component_concept": 0.47,
+          "contract_modification_concept": 0.397,
+          "termination_convenience_concept": 0.05
+        },
+        "computed": {
+          "trigger": 0.863,
+          "material_right": 0.88,
+          "variable_consideration": 0.063,
+          "refund_return": 0.04,
+          "financing_component": 0.08,
+          "contract_modification": 0.723,
+          "termination_convenience": 0.14,
+          "material_right_concept": 0.767,
+          "variable_consideration_concept": 0.237,
+          "refund_return_concept": 0.093,
+          "financing_component_concept": 0.437,
+          "contract_modification_concept": 0.33,
+          "termination_convenience_concept": 0.05
+        }
+      },
+      "family": "F4",
+      "clause": "Supplemental Order. This Supplemental Order is a new and independent agreement and does not modify the Prior Order. Customer purchases an additional 300B tokens for use during the remaining 6 months of the Prior Order at $1.40 per 1M tokens ($420,000).",
+      "context": "Prior Order: 3-year term from 1 April 2025 to 31 March 2028 for 2,400B tokens and $4,800,000, billed $1,600,000 annually in advance. As of 1 October 2027, 6 months remain, and $800,000 of the current year's fee covers that unused period. SSP for committed tokens: $2.00 to $2.20 per 1M tokens. The Prior Order has no option to buy additional tokens.",
+      "facts": {
+        "prior_term": [
+          "1 April 2025",
+          "31 March 2028"
+        ],
+        "prior_term_years": 3,
+        "prior_tokens_b": 2400,
+        "prior_fee_usd": 4800000,
+        "annual_fee_usd": 1600000,
+        "change_date": "1 October 2027",
+        "months_remaining": 6,
+        "unused_prepaid_usd": 800000,
+        "ssp_range_per_1m": [
+          2,
+          2.2
+        ],
+        "prior_order_add_on_option": false,
+        "term_type": "supplemental_order",
+        "added_tokens_b": 300,
+        "added_price_per_1m": 1.4,
+        "added_fee_usd": 420000,
+        "disclaimer": "independent_agreement"
+      },
+      "deal": {
+        "prior_order": {
+          "term": "1 April 2025 to 31 March 2028",
+          "tokens": "2,400B",
+          "fee": "$4,800,000, billed $1,600,000 annually in advance",
+          "add_on_option": "none"
+        },
+        "as_of": "1 October 2027",
+        "months_remaining_on_prior_order": 6,
+        "unused_prepaid_value": "$800,000",
+        "ssp_per_1m_tokens": "$2.00 to $2.20"
+      },
+      "computed": {
+        "change_timing": "6 months before the Prior Order ends",
+        "added_tokens_price_vs_ssp": "$1.40 per 1M tokens is 30% below the low end of the SSP range"
+      },
+      "gold": {
+        "trigger": true,
+        "considerations": [
+          "contract_modification"
+        ],
+        "primary": "none"
+      }
+    },
+    "rr-f4-h04": {
+      "means": {
+        "prose": {
+          "trigger": 0.83,
+          "material_right": 0.437,
+          "variable_consideration": 0.587,
+          "refund_return": 0.1,
+          "financing_component": 0.21,
+          "contract_modification": 0.94,
+          "termination_convenience": 0.143,
+          "material_right_concept": 0.72,
+          "variable_consideration_concept": 0.313,
+          "refund_return_concept": 0.387,
+          "financing_component_concept": 0.403,
+          "contract_modification_concept": 0.893,
+          "termination_convenience_concept": 0.043
+        },
+        "structured": {
+          "trigger": 0.83,
+          "material_right": 0.453,
+          "variable_consideration": 0.64,
+          "refund_return": 0.083,
+          "financing_component": 0.2,
+          "contract_modification": 0.937,
+          "termination_convenience": 0.163,
+          "material_right_concept": 0.603,
+          "variable_consideration_concept": 0.397,
+          "refund_return_concept": 0.397,
+          "financing_component_concept": 0.407,
+          "contract_modification_concept": 0.887,
+          "termination_convenience_concept": 0.04
+        },
+        "computed": {
+          "trigger": 0.863,
+          "material_right": 0.577,
+          "variable_consideration": 0.62,
+          "refund_return": 0.08,
+          "financing_component": 0.18,
+          "contract_modification": 0.93,
+          "termination_convenience": 0.16,
+          "material_right_concept": 0.67,
+          "variable_consideration_concept": 0.41,
+          "refund_return_concept": 0.377,
+          "financing_component_concept": 0.433,
+          "contract_modification_concept": 0.877,
+          "termination_convenience_concept": 0.043
+        }
+      },
+      "family": "F4",
+      "clause": "Amendment. Effective 1 July 2026, the price for the remaining 6 months of the Prior Order is reduced to $1.80 per 1M tokens; the resulting $100,000 reduction is credited against Customer's next invoice. The term is extended by twelve (12) months at 1,000B tokens for $1,800,000.",
+      "context": "Prior Order: 2-year term from 1 January 2025 to 31 December 2026 for 2,000B tokens and $4,000,000, billed $2,000,000 annually in advance. As of 1 July 2026, 6 months remain, and $1,000,000 of the current year's fee covers that unused period. SSP for committed tokens: $2.00 to $2.20 per 1M tokens. The Prior Order has no option to buy additional tokens.",
+      "facts": {
+        "prior_term": [
+          "1 January 2025",
+          "31 December 2026"
+        ],
+        "prior_term_years": 2,
+        "prior_tokens_b": 2000,
+        "prior_fee_usd": 4000000,
+        "annual_fee_usd": 2000000,
+        "change_date": "1 July 2026",
+        "months_remaining": 6,
+        "unused_prepaid_usd": 1000000,
+        "ssp_range_per_1m": [
+          2,
+          2.2
+        ],
+        "prior_order_add_on_option": false,
+        "term_type": "blend_and_extend",
+        "reduced_price_per_1m": 1.8,
+        "remaining_tokens_b": 500,
+        "reduction_credit_usd": 100000,
+        "extension_months": 12,
+        "extension_tokens_b": 1000,
+        "extension_fee_usd": 1800000
+      },
+      "deal": {
+        "prior_order": {
+          "term": "1 January 2025 to 31 December 2026",
+          "tokens": "2,000B",
+          "fee": "$4,000,000, billed $2,000,000 annually in advance",
+          "add_on_option": "none"
+        },
+        "as_of": "1 July 2026",
+        "months_remaining_on_prior_order": 6,
+        "unused_prepaid_value": "$1,000,000",
+        "ssp_per_1m_tokens": "$2.00 to $2.20"
+      },
+      "computed": {
+        "change_timing": "6 months before the Prior Order ends",
+        "reduced_price_vs_ssp": "$1.80 per 1M tokens is 10% below the low end of the SSP range"
+      },
+      "gold": {
+        "trigger": true,
+        "considerations": [
+          "contract_modification"
+        ],
+        "primary": "none"
+      }
+    },
+    "rr-f2-h05": {
+      "means": {
+        "prose": {
+          "trigger": 0.813,
+          "material_right": 0.03,
+          "variable_consideration": 0.96,
+          "refund_return": 0.03,
+          "financing_component": 0.18,
+          "contract_modification": 0.49,
+          "termination_convenience": 0.203,
+          "material_right_concept": 0.227,
+          "variable_consideration_concept": 0.87,
+          "refund_return_concept": 0.07,
+          "financing_component_concept": 0.237,
+          "contract_modification_concept": 0.183,
+          "termination_convenience_concept": 0.027
+        },
+        "structured": {
+          "trigger": 0.827,
+          "material_right": 0.02,
+          "variable_consideration": 0.96,
+          "refund_return": 0.03,
+          "financing_component": 0.157,
+          "contract_modification": 0.543,
+          "termination_convenience": 0.173,
+          "material_right_concept": 0.207,
+          "variable_consideration_concept": 0.89,
+          "refund_return_concept": 0.06,
+          "financing_component_concept": 0.213,
+          "contract_modification_concept": 0.153,
+          "termination_convenience_concept": 0.023
+        },
+        "computed": {
+          "trigger": 0.813,
+          "material_right": 0.02,
+          "variable_consideration": 0.96,
+          "refund_return": 0.03,
+          "financing_component": 0.16,
+          "contract_modification": 0.56,
+          "termination_convenience": 0.177,
+          "material_right_concept": 0.207,
+          "variable_consideration_concept": 0.887,
+          "refund_return_concept": 0.06,
+          "financing_component_concept": 0.23,
+          "contract_modification_concept": 0.15,
+          "termination_convenience_concept": 0.02
+        }
+      },
+      "family": "F2",
+      "clause": "Success Fee. If Customer's average cost per resolved ticket falls by at least 20% during the first contract year, Customer will pay Vendor a one-time success fee of $150,000.",
+      "context": "Customer: enterprise customer. Three-year SaaS subscription at $480,000 per year, billed annually in advance. The vendor's standard SLA gives service credits of up to 10% of the monthly fee, applied against future invoices.",
+      "facts": {
+        "term_type": "success_fee",
+        "metric": "cost_per_resolved_ticket",
+        "target_reduction": 0.2,
+        "window_months": 12,
+        "success_fee_usd": 150000
+      },
+      "deal": {
+        "customer": "enterprise",
+        "subscription": "Three-year SaaS subscription at $480,000 per year, billed annually in advance.",
+        "standard_sla": "service credits of up to 10% of the monthly fee, applied against future invoices"
+      },
+      "computed": {},
+      "gold": {
+        "trigger": true,
+        "considerations": [
+          "variable_consideration"
+        ],
+        "primary": "none"
+      }
+    }
+  },
+  "demo": {
+    "id": "rr-demo-01",
+    "means": {
+      "prose": {
+        "trigger": 0.607,
+        "material_right": 0.937,
+        "variable_consideration": 0.217,
+        "refund_return": 0.03,
+        "financing_component": 0.1,
+        "contract_modification": 0.15,
+        "termination_convenience": 0.183,
+        "material_right_concept": 0.54,
+        "variable_consideration_concept": 0.557,
+        "refund_return_concept": 0.053,
+        "financing_component_concept": 0.207,
+        "contract_modification_concept": 0.253,
+        "termination_convenience_concept": 0.037
+      },
+      "structured": {
+        "trigger": 0.517,
+        "material_right": 0.937,
+        "variable_consideration": 0.173,
+        "refund_return": 0.023,
+        "financing_component": 0.08,
+        "contract_modification": 0.107,
+        "termination_convenience": 0.187,
+        "material_right_concept": 0.573,
+        "variable_consideration_concept": 0.61,
+        "refund_return_concept": 0.06,
+        "financing_component_concept": 0.27,
+        "contract_modification_concept": 0.243,
+        "termination_convenience_concept": 0.047
+      },
+      "computed": {
+        "trigger": 0.697,
+        "material_right": 0.97,
+        "variable_consideration": 0.153,
+        "refund_return": 0.023,
+        "financing_component": 0.08,
+        "contract_modification": 0.117,
+        "termination_convenience": 0.197,
+        "material_right_concept": 0.633,
+        "variable_consideration_concept": 0.567,
+        "refund_return_concept": 0.06,
+        "financing_component_concept": 0.213,
+        "contract_modification_concept": 0.243,
+        "termination_convenience_concept": 0.04
+      }
+    },
+    "runs": [
+      "rev-rec-demo-v2-prose-2026-10-04T031942724Z.jsonl",
+      "rev-rec-demo-v2-structured-2026-10-04T031942883Z.jsonl",
+      "rev-rec-demo-v2-computed-2026-10-04T031943020Z.jsonl"
+    ],
+    "clause": "Additional Tokens. At any time during the Subscription Term, Customer may purchase additional input tokens, in blocks of 1 trillion, at $21 per billion input tokens.",
+    "context": "Customer: enterprise software company on a 12-month subscription. Committed usage: 24 trillion input tokens for $960,000 ($40 per billion). Standalone selling price (SSP) for committed input tokens for customers of this size: $38 to $42 per billion. List price: $42 per billion input tokens. Output tokens are not charged.",
+    "facts": {
+      "term_type": "add_on_option",
+      "term_months": 12,
+      "committed_input_tokens_bn": 24000,
+      "committed_price_per_bn": 40,
+      "ssp_range_per_bn": [
+        38,
+        42
+      ],
+      "list_price_per_bn": 42,
+      "add_on_price_per_bn": 21,
+      "add_on_block_bn": 1000,
+      "committed_fee_usd": 960000
+    },
+    "deal": {
+      "customer": "enterprise software company",
+      "term": "12 months",
+      "committed_usage": "24 trillion input tokens for $960,000 ($40 per billion)",
+      "ssp_per_billion_input_tokens": "$38 to $42",
+      "list_price_per_billion_input_tokens": "$42",
+      "output_tokens": "not charged"
+    },
+    "computed": {
+      "add_on_price_vs_ssp": "$21 per billion input tokens is 45% below the low end of the SSP range"
+    },
+    "gold": {
+      "trigger": true,
+      "considerations": [
+        "material_right"
+      ],
+      "primary": "none"
+    },
+    "status": "draft"
+  },
+  "calibration": [
+    {
+      "from": 0,
+      "to": 0.1,
+      "count": 255,
+      "meanPredicted": 0.048,
+      "observedYes": 0
+    },
+    {
+      "from": 0.1,
+      "to": 0.3,
+      "count": 280,
+      "meanPredicted": 0.182,
+      "observedYes": 0.029
+    },
+    {
+      "from": 0.3,
+      "to": 0.5,
+      "count": 93,
+      "meanPredicted": 0.393,
+      "observedYes": 0.075
+    },
+    {
+      "from": 0.5,
+      "to": 0.7,
+      "count": 60,
+      "meanPredicted": 0.591,
+      "observedYes": 0.483
+    },
+    {
+      "from": 0.7,
+      "to": 0.9,
+      "count": 64,
+      "meanPredicted": 0.795,
+      "observedYes": 0.703
+    },
+    {
+      "from": 0.9,
+      "to": 1,
+      "count": 28,
+      "meanPredicted": 0.934,
+      "observedYes": 1
+    }
+  ],
+  "calibrationExpert": [
+    {
+      "from": 0,
+      "to": 0.1,
+      "count": 151,
+      "meanPredicted": 0.043,
+      "observedYes": 0
+    },
+    {
+      "from": 0.1,
+      "to": 0.3,
+      "count": 161,
+      "meanPredicted": 0.174,
+      "observedYes": 0
+    },
+    {
+      "from": 0.3,
+      "to": 0.5,
+      "count": 12,
+      "meanPredicted": 0.392,
+      "observedYes": 0
+    },
+    {
+      "from": 0.5,
+      "to": 0.7,
+      "count": 29,
+      "meanPredicted": 0.618,
+      "observedYes": 0.483
+    },
+    {
+      "from": 0.7,
+      "to": 0.9,
+      "count": 40,
+      "meanPredicted": 0.799,
+      "observedYes": 0.925
+    },
+    {
+      "from": 0.9,
+      "to": 1,
+      "count": 27,
+      "meanPredicted": 0.942,
+      "observedYes": 0.889
+    }
+  ],
+  "trainingCounts": {
+    "records": 12,
+    "pairs": 6
+  },
+  "optionPair": [
+    {
+      "id": "tr-mr-02-a",
+      "clause": "Year-Three Tokens. Customer purchases 300B additional tokens for use in the third contract year at $1.50 per 1M tokens.",
+      "context": "New three-year order signed today. Customer: enterprise software company. Base commitment: 2,000B tokens at $1.90 per 1M tokens. SSP for committed tokens: $1.80 to $2.00 per 1M tokens.",
+      "gold": {
+        "material_right_concept": {
+          "noul": 0
+        },
+        "material_right": {
+          "noul": 0
+        }
+      },
+      "facts": {
+        "term_type": "committed_add_on",
+        "is_option": false,
+        "tokens_b": 300,
+        "price_per_1m": 1.5,
+        "ssp_range_per_1m": [
+          1.8,
+          2
+        ],
+        "price_vs_ssp": "17% below the low end of the SSP range"
+      },
+      "rationale": "A committed purchase in the same contract, not an option. The $1.50 price is 17% below the low end of the SSP range, which affects how the transaction price is allocated (606-10-32-28 to 32-31), but there is no material right."
+    },
+    {
+      "id": "tr-mr-02-b",
+      "clause": "Year-Three Tokens. Customer may purchase up to 300B additional tokens for use in the third contract year at $1.50 per 1M tokens.",
+      "context": "New three-year order signed today. Customer: enterprise software company. Base commitment: 2,000B tokens at $1.90 per 1M tokens. SSP for committed tokens: $1.80 to $2.00 per 1M tokens.",
+      "gold": {
+        "material_right_concept": {
+          "noul": 1
+        },
+        "material_right": {
+          "noul": 1
+        }
+      },
+      "facts": {
+        "term_type": "add_on_option",
+        "is_option": true,
+        "tokens_b": 300,
+        "price_per_1m": 1.5,
+        "ssp_range_per_1m": [
+          1.8,
+          2
+        ],
+        "price_vs_ssp": "17% below the low end of the SSP range"
+      },
+      "rationale": "An option to buy at $1.50, 17% below the low end of the SSP range: a discount the customer gets only by signing, so a material right (606-10-55-42)."
+    }
+  ],
+  "trainingPair": [
+    {
+      "id": "tr-mr-01-a",
+      "clause": "Preferred Pricing. In recognition of Customer's commitment, Customer may purchase additional tokens during the Term at a preferred rate of $1.85 per 1M tokens.",
+      "context": "Customer: mid-market software company on a two-year term with a prepaid commitment of 800B tokens. SSP for committed tokens for customers of this size: $1.80 to $2.00 per 1M tokens.",
+      "gold": {
+        "material_right_concept": {
+          "noul": 0
+        },
+        "material_right": {
+          "noul": 0
+        }
+      },
+      "facts": {
+        "term_type": "add_on_option",
+        "option_price_per_1m": 1.85,
+        "ssp_range_per_1m": [
+          1.8,
+          2
+        ],
+        "price_vs_ssp": "within the SSP range"
+      },
+      "rationale": "$1.85 is within the SSP range. Despite the word \"preferred\", the option gives no discount beyond what this class of customer would pay, so there is no material right (606-10-55-43)."
+    },
+    {
+      "id": "tr-mr-01-b",
+      "clause": "Preferred Pricing. In recognition of Customer's commitment, Customer may purchase additional tokens during the Term at a preferred rate of $1.55 per 1M tokens.",
+      "context": "Customer: mid-market software company on a two-year term with a prepaid commitment of 800B tokens. SSP for committed tokens for customers of this size: $1.80 to $2.00 per 1M tokens.",
+      "gold": {
+        "material_right_concept": {
+          "noul": 1
+        },
+        "material_right": {
+          "noul": 1
+        }
+      },
+      "facts": {
+        "term_type": "add_on_option",
+        "option_price_per_1m": 1.55,
+        "ssp_range_per_1m": [
+          1.8,
+          2
+        ],
+        "price_vs_ssp": "14% below the low end of the SSP range"
+      },
+      "rationale": "$1.55 is 14% below the low end of the SSP range, an incremental discount the customer gets only by entering this contract: a material right (606-10-55-41 to 55-43)."
+    }
+  ]
+}

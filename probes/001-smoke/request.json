@@ -1,0 +1,31 @@
+{
+  "model": "jev-1.13.0",
+  "state": {
+    "clause": "Customer may renew the subscription for one additional 12-month term at a 30% discount to the then-current list price."
+  },
+  "questions": {
+    "grants_renewal_option": {
+      "type": "noul",
+      "instructions": "Does `clause` give the customer an option to renew?"
+    },
+    "main_topic": {
+      "type": "choice",
+      "instructions": "Which topic does `clause` mainly address?",
+      "criteria": {
+        "renewal": "Renewal or extension of the contract term",
+        "payment_terms": "When or how the customer pays",
+        "termination": "Ending the contract early",
+        "none": "None of the above"
+      }
+    },
+    "renewal_price_specificity": {
+      "type": "score",
+      "instructions": "How precisely does `clause` state the renewal price?",
+      "criteria": [
+        "No renewal price is stated",
+        "A renewal price is mentioned but left to future agreement",
+        "The renewal price can be determined from the clause"
+      ]
+    }
+  }
+}

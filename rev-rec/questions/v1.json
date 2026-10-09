@@ -1,0 +1,52 @@
+{
+  "version": "v1",
+  "notes": "Aligned with the label rules in rev-rec/README.md. The trigger is deal scope; each consideration Noul is substance; the primary Choice routes only when a review is needed. Questions refer to `deal` and `computed` generically, so they work with every state shape (prose `context`, structured `deal`, and `computed`).",
+  "considerations": ["material_right", "variable_consideration", "refund_return", "financing_component", "contract_modification", "termination_convenience"],
+  "questions": {
+    "trigger": {
+      "type": "noul",
+      "instructions": "Does this deal need a revenue accounting review because `clause` departs from the vendor's standard terms in a way that could change how much revenue is recognized or when?",
+      "criteria": {
+        "true": "The term is non-standard for this deal, given the deal information: for example a refund right, credits or penalties beyond the standard SLA, an option priced below standalone selling price, payment more than a year from delivery, or an early renewal that replaces an existing contract.",
+        "false": "The term matches the vendor's standard terms or is priced within standalone selling price, so no review is needed for this deal, even if an ASC 606 concept technically applies."
+      }
+    },
+    "material_right": {
+      "type": "noul",
+      "instructions": "Does `clause` give the customer an option to buy additional goods or services at a price below their standalone selling price?"
+    },
+    "variable_consideration": {
+      "type": "noul",
+      "instructions": "Can the amount the customer pays under `clause` change because of a future event, such as service credits, refunds, performance bonuses or penalties, or price concessions?"
+    },
+    "refund_return": {
+      "type": "noul",
+      "instructions": "Does `clause` give the customer a right to get cash back for fees it has paid?"
+    },
+    "financing_component": {
+      "type": "noul",
+      "instructions": "Under `clause`, does more than one year separate when the customer receives the service and when it pays, in either direction?"
+    },
+    "contract_modification": {
+      "type": "noul",
+      "instructions": "Does `clause` change the scope or price of an existing contract with this customer, including adding to it, replacing it, or terminating it early? A new contract that starts when the old one expires is not a change."
+    },
+    "termination_convenience": {
+      "type": "noul",
+      "instructions": "Can the customer end the contract early for a reason other than the vendor's breach, without paying a substantive penalty?"
+    },
+    "primary": {
+      "type": "choice",
+      "instructions": "If this deal needs a revenue accounting review because of `clause`, which ASC 606 consideration is the main reason? If no review is needed, choose none.",
+      "criteria": {
+        "material_right": "An option to buy more goods or services at a discount the customer would not otherwise get",
+        "variable_consideration": "The amount the customer pays can change with future events such as credits, guarantees, or penalties",
+        "refund_return": "The customer can get cash back for fees paid",
+        "financing_component": "More than a year separates delivery and payment",
+        "contract_modification": "An existing contract is changed, replaced, or terminated early",
+        "termination_convenience": "The customer can end the contract early without a substantive penalty",
+        "none": "No revenue accounting review is needed for this deal"
+      }
+    }
+  }
+}

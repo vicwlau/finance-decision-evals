@@ -1,0 +1,8 @@
+hairline-kernel.js is the kernel of the hairline drawing engine by Lucas Marques, licensed under
+the MIT License (see LICENSE in this folder). Upstream: https://github.com/lucasmarkes/hairline,
+skills/hairline-create/kernel.js at commit c3692e0. It was copied here through my private drawing
+workspace at commit 41a025f.
+
+contract-page.js, host.js, locked-set.js, scan-flags.js and training-pair.js were drawn with the
+hairline engine in my private drawing workspace, at commit 41a025f. They are covered by this
+repository's MIT License (LICENSE at the repository root), Copyright (c) 2026 Victor Lau.
