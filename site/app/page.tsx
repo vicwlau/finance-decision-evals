@@ -96,8 +96,8 @@ const FLAG_CASES: Record<string, FlagCase> = {
   "rr-f3-h02": cases["rr-f3-h02"],
 };
 
-/** Set once the repository is public; links render as plain text until then. */
-const REPO_URL: string | null = null;
+/** The public repository; with null, links render as plain text. */
+const REPO_URL: string | null = "https://github.com/vicwlau/finance-decision-evals";
 
 const payment = cases["rr-f3-h02"];
 // Frame 3's example states the installment count and the license fee.
