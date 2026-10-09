@@ -117,7 +117,7 @@ IDs never change. A family moving between lists keeps its ID.
   annual allotment that expires each year.
 - **ASC 606 question**: When is an overage really an overage, and when are unused tokens breakage?
   With a pool, heavy early use draws the prepaid balance down sooner and overage starts only once
-  the whole pool is used; annual expiry creates breakage each year.
+  the whole pool is used; annual expiry can create breakage each year.
 - **Judgment**: The token structure changes the accounting without changing the clause's wording.
   An ideal minimal pair.
 - **Labels**: `variable_consideration`; breakage has no label yet (see T4)

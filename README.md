@@ -39,13 +39,13 @@ All 180 held-out calls cost $0.0076.
   ([`build-heldout.ts`](rev-rec/scripts/build-heldout.ts), [`check-cases.ts`](rev-rec/scripts/check-cases.ts)).
   Nothing is copied from a real contract.
 - **Labels.** The clause families and label rules come from my experience running ASC 606
-  deal-desk review. Claude drafted the cases and labels from my notes and rules. I reviewed every
-  one, changed two drafts (rr-f2-03, rr-f4-03), which set the rule that a label records the
-  accounting substance while the review call records deal scope, and approved all 17 dev and 20
-  held-out labels. Two independent AI reviews labelled the held-out cases blind first
-  ([`rev-rec/reviews/`](rev-rec/reviews/)). I approved 19 of the 20 on 9 October 2026, after the
-  run; the freeze hash shows no label changed since. Every verdict is logged in
-  [`reviews.jsonl`](rev-rec/data/reviews.jsonl).
+  deal-desk review. Claude drafted the cases and labels from my notes and rules, and I reviewed
+  every one. My notes on two drafts (rr-f2-03, rr-f4-03) changed their labels and set the rule that
+  a label records the accounting substance while the review call records deal scope. I approved all
+  17 dev and 20 held-out labels. Two independent AI reviews labelled the held-out cases blind first
+  ([`rev-rec/reviews/`](rev-rec/reviews/)). I decided one held-out case (rr-f4-h03) before the run
+  and approved the other 19 on 9 October 2026, after it; the freeze hash shows they are the labels
+  Jev was scored against. Every verdict is logged in [`reviews.jsonl`](rev-rec/data/reviews.jsonl).
 - **A locked test set.** The held-out cases were hashed before Jev saw them
   ([`heldout-freeze.json`](rev-rec/data/heldout-freeze.json)); the runner refuses to run if they
   change. Check it with `grep '"split":"heldout"' rev-rec/data/cases.jsonl | shasum -a 256`.

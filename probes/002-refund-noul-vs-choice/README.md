@@ -22,7 +22,8 @@ interleaved within each repeat:
   0.47, summing to 1.19.
 - Small noise between identical requests.
 - A third-party run on the `LocalLLaMA/typed-decisions` benchmark (Hugging Face) saw Jev's yes/no
-  accuracy fall from 0.843 to 0.788 when questions were batched. Here, a check on whether batching moves these answers.
+  accuracy (agreement with the benchmark's model-generated labels) fall from 0.843 to 0.788 when
+  questions were batched. Here, a check on whether batching moves these answers.
 
 ## Saw
 

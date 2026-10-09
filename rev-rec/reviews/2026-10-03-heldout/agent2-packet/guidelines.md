@@ -228,7 +228,7 @@ IDs never change. A family moving between lists keeps its ID.
 - **Clause**: An enterprise deal with committed tokens, API access, and bundled customer success.
 - **ASC 606 question**: Is the promise a stand-ready obligation (access over time, recognized
   ratably) or the delivery of a specified quantity of tokens (recognized as consumed)?
-- **Judgment**: The nature of the promise. [Redacted for the public copy: one company's policy.] Some vendors recognize such deals
+- **Judgment**: The nature of the promise. [Redacted for the public copy: one company's policy. Some vendors] recognize such deals
   ratably, treating API availability plus inseparable customer success as one stand-ready
   obligation. Others recognize capacity commitments as consumed.
 - **Labels**: none yet (a measure-of-progress label would be new)

@@ -42,9 +42,7 @@ The six considerations:
 - `material_right`: an option to buy more, or to renew, at a discount the customer wouldn't
   otherwise get (606-10-55-41 to 55-45).
 - `variable_consideration`: the amount can vary, for example SLA credits, bonuses and penalties,
-  price concessions, or refunds (606-10-32-5 to 32-9). Usage the customer chooses to buy at a fixed
-  unit price, such as overage, is an optional purchase: it's tested as an option (`material_right`),
-  not as variable consideration.
+  price concessions, or refunds (606-10-32-5 to 32-9).
 - `refund_return`: refund or return rights.
 - `financing_component`: the timing of payments against transfer may create a significant
   financing component (606-10-32-15 to 32-20, including the one-year practical expedient).
@@ -57,7 +55,7 @@ but the standard SLA is handled once at the policy level, so no deal review is n
 A co-terminous add-on at SSP is a contract modification, but it's accounted for as a separate
 contract, so the existing accounting doesn't change (rr-f4-03).
 
-Four more conventions apply to every case:
+Five more conventions apply to every case:
 
 - **A refund right is also variable consideration.** A clause that lets the customer get cash
   back carries both `refund_return` and `variable_consideration` (606-10-32-6). Breakage from
@@ -66,12 +64,19 @@ Four more conventions apply to every case:
   vendor, the case states that standard: the SSP range (F1), the standard SLA (F2), or the
   standard payment terms (F3). Without it, the label would rest on knowledge Jev can't have.
 - **The material-right rule is a screen.** It flags an option priced below the low end of the SSP
-  range. A full assessment would also weigh how material the discount is and how likely the
-  customer is to use it (606-10-55-41 to 55-44).
+  range. A full assessment would also judge whether that discount is material, in amount and in kind
+  (606-10-55-42). How likely the customer is to use the option doesn't decide whether it is a
+  material right; it sets how much of the price is allocated to it (606-10-55-44).
+- **Overage is labelled as an option.** Usage the customer chooses to buy beyond its commitment at a
+  fixed unit price is screened under `material_right`, not labelled `variable_consideration`. Where
+  the vendor's promise is one stand-ready service, many practitioners treat usage fees as variable
+  consideration instead (TRG Agenda Ref. No. 48). This choice decides only rr-f1-03 and rr-f1-04
+  (dev); the open question is T6 in `families.md`.
 - **A renewal that starts at expiry is a new contract.** A renewal agreed during the term that
   starts when the current contract ends is labelled a new contract, not a modification (rr-f4-02,
   `tr-mod-01-b`). Many practitioners would call it a modification accounted for as a separate
-  contract (606-10-25-12). The accounting is the same; the label follows the timing.
+  contract (606-10-25-12). Both cases are priced inside the SSP range, which is what makes the
+  accounting the same; the label follows the timing.
 
 Cases also store `labels.primary`, the main consideration, which question sets v0 and v1 asked
 for. I dropped that question in v2: "main" is subjective when a clause raises several issues, and
@@ -112,10 +117,11 @@ of the case as it stood. `reviewer: "owner"` marks my verdicts, and `agent:claud
 an independent Claude reviewer's. My verdict on a case supersedes an agent's. `score.ts` prints in
 every results file how many cases I approved and how many only an agent approved.
 
-The dev cases were written one at a time: Claude drafted them from my notes, and I reviewed and
-edited them. One frozen held-out case, rr-f2-h03, names the substance-versus-scope rule in its `why`
-by an internal reference; its text stays as frozen. The held-out cases are generated from their facts by
-`scripts/build-heldout.ts`, so every amount in the text is computed in code.
+The dev cases were written one at a time: Claude drafted them from my notes, and I reviewed each
+one (`reviews/README.md` lists what my notes changed). The held-out cases are generated from their
+facts by `scripts/build-heldout.ts`, so every amount in the text is computed in code. One frozen
+held-out case, rr-f2-h03, cites "decision #004" in its `why`; that is my private note of the
+substance-versus-scope rule above, and its text stays as frozen.
 
 ## Questions
 
@@ -144,7 +150,7 @@ rev-rec/
     cases.jsonl             dev, held-out and demo cases
     heldout-freeze.json     held-out hash, method, pre-registered slices, approvals at freeze
     reviews.jsonl           every review verdict and note
-    training-examples.jsonl draft training records (minimal pairs)
+    training-examples.jsonl training records (minimal pairs)
   questions/                question sets v0, v1, v2
   runs/                     one JSONL log per run, its .results.md, and compare-*.md tables
   reviews/                  label-review evidence, one folder per review round

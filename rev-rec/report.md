@@ -41,13 +41,13 @@
   `run.ts --split heldout` refuses to run if the hash changes, and logs it on every record. I wrote
   and refined the questions on the 17 dev cases only, so the held-out cases played no part in
   shaping them. Held-out ran once, on question set v2.
-- **Labels.** The label rules, the cases, and every dev label come from my experience
-  running ASC 606 deal-desk review. Held-out labels follow the same rules. Claude drafted the cases
-  and labels from my notes and rules; I reviewed every one and changed two dev drafts (rr-f2-03,
-  rr-f4-03), which set the substance-versus-deal-scope rule below. Two blind AI reviews checked the
-  held-out labels first: they agreed with the drafts on 139 and 140 of 140 decisions and passed one
-  case to me (rr-f4-h03). I approved the other 19 on 9 October 2026, after the run; the freeze hash
-  shows no label changed since. The reviews are in
+- **Labels.** The clause families and label rules come from my experience running ASC 606
+  deal-desk review. Claude drafted the cases and labels from my notes and rules, and I reviewed
+  every one. My notes on two dev drafts (rr-f2-03, rr-f4-03) changed their labels and set the
+  substance-versus-deal-scope rule below. Two blind AI reviews checked the held-out labels first:
+  they agreed with the drafts on 139 and 140 of 140 decisions and passed one case to me
+  (rr-f4-h03), which I decided before the run. I approved the other 19 on 9 October 2026, after it;
+  the freeze hash shows they are the labels Jev was scored against. The reviews are in
   `reviews/2026-10-03-heldout/`. Each case carries two labels: whether the deal needs a review, and
   which ASC 606 considerations apply in substance ([`README.md`](README.md#what-the-labels-mean)). A
   consideration can apply without a review, for example a standard SLA's credits.
@@ -137,8 +137,8 @@ where an issue applies, these rates describe these clauses, not Jev in general.
 - **A clause's description of itself sways the by-name answer.** rr-f4-h05 calls itself "a new and
   independent agreement" while adding tokens 30% below the SSP range for the last 6 months of the
   old contract. It changes the existing contract's scope and price, so it is a modification
-  (606-10-25-10), and priced below SSP it fails 606-10-25-12(b), so it isn't accounted for as a
-  separate contract. By name, Jev says no (0.23–0.40). With the rule written out it says yes
+  (606-10-25-10). Priced 30% below the SSP range, with nothing in the facts to justify the
+  discount, it fails 606-10-25-12(b), so it isn't accounted for as a separate contract. By name, Jev says no (0.23–0.40). With the rule written out it says yes
   (0.65–0.74).
 
 ## Remaining misses
@@ -196,8 +196,9 @@ request, in all three shapes (18 calls, $0.0005). Range of means across the shap
 The clarifying sentence fixed the variable-consideration miss in every shape. It moved the
 material-right miss to about 0.55, still on the wrong side. The two sentences ("A fixed amount … is
 not variable"; "A purchase the customer has already committed to is not an option") state the
-distinction each question tests, so they border on giving Jev the answer. I read both misses as
-reading gaps: a model that understands these concepts should infer the distinction from the clause.
+distinction each question tests, so they border on giving Jev the answer. I read both as
+structure misses: a model that understands these concepts should infer the distinction from the
+clause.
 The probe covers two
 held-out clauses and is diagnostic only. It is not a held-out score.
 

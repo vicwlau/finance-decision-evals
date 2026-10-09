@@ -33,10 +33,10 @@ The clarified wording is the one drafted for the training examples (`rev-rec/scr
 
 - The clarified rule fixes the variable-consideration miss in every shape. Its added sentence ("A
   fixed amount … is not variable") states the distinction the question tests, so it comes close to
-  giving Jev the answer. I read the miss as a reading gap: a model that understands variable
+  giving Jev the answer. I read it as a structure miss: a model that understands variable
   consideration should see from the clause that both amounts are fixed.
 - The clarified rule moves the material-right miss from fairly confident (0.70–0.89) to near a coin
   flip (0.53–0.58), still on the wrong side. Telling a committed purchase from an option remains a
-  reading gap.
+  structure miss.
 - Diagnostic only, on two held-out clauses. It is not a held-out score. I wrote the clarified
   wording after seeing held-out errors, so scoring it needs fresh clauses.
