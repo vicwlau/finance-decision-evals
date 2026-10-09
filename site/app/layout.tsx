@@ -10,9 +10,16 @@ const sans = Libre_Franklin({ subsets: ["latin"], variable: "--font-sans", displ
 /** The section labels and the run stamp. */
 const labelMono = Fragment_Mono({ subsets: ["latin"], weight: "400", variable: "--font-label", display: "swap" });
 
+const title = "Jev on ASC 606 contract terms";
+const description = "Where a calibrated decision model is weak on revenue-recognition triage, and the data that could help fix it.";
+
+// The share image is app/opengraph-image.png (and twitter-image.png), built from site/design/og/a3.html.
 export const metadata: Metadata = {
-  title: "Jev on ASC 606 contract terms",
-  description: "Where a calibrated decision model is weak on revenue-recognition triage, and the data that could help fix it.",
+  metadataBase: new URL("https://jev-revrec.victorlau.dev"),
+  title,
+  description,
+  openGraph: { title, description, type: "article", url: "/", siteName: "Victor Lau", authors: ["Victor Lau"] },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

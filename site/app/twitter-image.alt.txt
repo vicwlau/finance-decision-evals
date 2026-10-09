@@ -1,0 +1,1 @@
+Finding the one clause that changes the revenue: a research note by Victor Lau testing a decision model on ASC 606 contract terms.
