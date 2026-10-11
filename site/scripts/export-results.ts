@@ -29,10 +29,11 @@ async function load(split: "heldout" | "dev", shape: Shape) {
   return read(`rev-rec/runs/rev-rec-${split}-v2-${shape}-${stamp}.jsonl`);
 }
 
-/** Accuracy and Brier over every call for the given questions. */
+/** Accuracy and Brier over every call for the given questions, and how many answers missed a yes label. */
 function score(recs: any[], qs: string[]) {
   const ok: number[] = [];
   const sq: number[] = [];
+  let missed = 0;
   for (const r of recs) {
     const c = cases.get(r.case_id);
     for (const q of qs) {
@@ -40,9 +41,10 @@ function score(recs: any[], qs: string[]) {
       const y = gold(c, q);
       ok.push(+((p >= 0.5 ? 1 : 0) === y));
       sq.push((p - y) ** 2);
+      if (y === 1 && p < 0.5) missed++;
     }
   }
-  return { accuracy: r3(mean(ok)), brier: r3(mean(sq)), n: ok.length };
+  return { accuracy: r3(mean(ok)), brier: r3(mean(sq)), n: ok.length, missed };
 }
 
 const concept = (q: string) => `${q}_concept`;

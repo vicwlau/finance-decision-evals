@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T00:39:44.204Z",
+  "generatedAt": "2026-10-11T04:00:34.378Z",
   "source": "rev-rec/runs (v2), rev-rec/data/cases.jsonl, rev-rec/data/training-examples.jsonl",
   "run": {
     "model": "jev-1.13.0",
@@ -196,51 +196,60 @@
         "trigger": {
           "accuracy": 0.933,
           "brier": 0.071,
-          "n": 60
+          "n": 60,
+          "missed": 2
         },
         "rule": {
           "accuracy": 0.939,
           "brier": 0.058,
-          "n": 360
+          "n": 360,
+          "missed": 9
         },
         "concept": {
           "accuracy": 0.892,
           "brier": 0.094,
-          "n": 360
+          "n": 360,
+          "missed": 4
         }
       },
       "structured": {
         "trigger": {
           "accuracy": 0.933,
           "brier": 0.082,
-          "n": 60
+          "n": 60,
+          "missed": 4
         },
         "rule": {
           "accuracy": 0.914,
           "brier": 0.065,
-          "n": 360
+          "n": 360,
+          "missed": 9
         },
         "concept": {
           "accuracy": 0.878,
           "brier": 0.094,
-          "n": 360
+          "n": 360,
+          "missed": 4
         }
       },
       "computed": {
         "trigger": {
           "accuracy": 1,
           "brier": 0.043,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "rule": {
           "accuracy": 0.942,
           "brier": 0.053,
-          "n": 360
+          "n": 360,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.872,
           "brier": 0.096,
-          "n": 360
+          "n": 360,
+          "missed": 5
         }
       }
     },
@@ -249,51 +258,60 @@
         "trigger": {
           "accuracy": 0.765,
           "brier": 0.119,
-          "n": 51
+          "n": 51,
+          "missed": 6
         },
         "rule": {
           "accuracy": 0.98,
           "brier": 0.039,
-          "n": 306
+          "n": 306,
+          "missed": 1
         },
         "concept": {
           "accuracy": 0.856,
           "brier": 0.098,
-          "n": 306
+          "n": 306,
+          "missed": 7
         }
       },
       "structured": {
         "trigger": {
           "accuracy": 0.882,
           "brier": 0.116,
-          "n": 51
+          "n": 51,
+          "missed": 3
         },
         "rule": {
           "accuracy": 0.977,
           "brier": 0.042,
-          "n": 306
+          "n": 306,
+          "missed": 3
         },
         "concept": {
           "accuracy": 0.859,
           "brier": 0.102,
-          "n": 306
+          "n": 306,
+          "missed": 8
         }
       },
       "computed": {
         "trigger": {
           "accuracy": 0.922,
           "brier": 0.075,
-          "n": 51
+          "n": 51,
+          "missed": 1
         },
         "rule": {
           "accuracy": 0.987,
           "brier": 0.033,
-          "n": 306
+          "n": 306,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.853,
           "brier": 0.093,
-          "n": 306
+          "n": 306,
+          "missed": 6
         }
       }
     }
@@ -304,36 +322,42 @@
         "rule": {
           "accuracy": 0.95,
           "brier": 0.048,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.75,
           "brier": 0.17,
-          "n": 60
+          "n": 60,
+          "missed": 1
         }
       },
       "structured": {
         "rule": {
           "accuracy": 0.85,
           "brier": 0.109,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.75,
           "brier": 0.169,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       },
       "computed": {
         "rule": {
           "accuracy": 0.85,
           "brier": 0.091,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.7,
           "brier": 0.174,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       }
     },
@@ -342,36 +366,42 @@
         "rule": {
           "accuracy": 0.9,
           "brier": 0.069,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.9,
           "brier": 0.106,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       },
       "structured": {
         "rule": {
           "accuracy": 0.9,
           "brier": 0.064,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.833,
           "brier": 0.117,
-          "n": 60
+          "n": 60,
+          "missed": 1
         }
       },
       "computed": {
         "rule": {
           "accuracy": 0.9,
           "brier": 0.057,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.867,
           "brier": 0.116,
-          "n": 60
+          "n": 60,
+          "missed": 2
         }
       }
     },
@@ -380,36 +410,42 @@
         "rule": {
           "accuracy": 1,
           "brier": 0.008,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 1,
           "brier": 0.027,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       },
       "structured": {
         "rule": {
           "accuracy": 1,
           "brier": 0.008,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 1,
           "brier": 0.027,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       },
       "computed": {
         "rule": {
           "accuracy": 1,
           "brier": 0.009,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 1,
           "brier": 0.027,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       }
     },
@@ -418,36 +454,42 @@
         "rule": {
           "accuracy": 0.85,
           "brier": 0.111,
-          "n": 60
+          "n": 60,
+          "missed": 9
         },
         "concept": {
           "accuracy": 0.85,
           "brier": 0.14,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       },
       "structured": {
         "rule": {
           "accuracy": 0.85,
           "brier": 0.104,
-          "n": 60
+          "n": 60,
+          "missed": 9
         },
         "concept": {
           "accuracy": 0.833,
           "brier": 0.151,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       },
       "computed": {
         "rule": {
           "accuracy": 1,
           "brier": 0.048,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.817,
           "brier": 0.156,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       }
     },
@@ -456,36 +498,42 @@
         "rule": {
           "accuracy": 0.933,
           "brier": 0.083,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.85,
           "brier": 0.12,
-          "n": 60
+          "n": 60,
+          "missed": 3
         }
       },
       "structured": {
         "rule": {
           "accuracy": 0.883,
           "brier": 0.08,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.85,
           "brier": 0.098,
-          "n": 60
+          "n": 60,
+          "missed": 3
         }
       },
       "computed": {
         "rule": {
           "accuracy": 0.9,
           "brier": 0.084,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 0.85,
           "brier": 0.103,
-          "n": 60
+          "n": 60,
+          "missed": 3
         }
       }
     },
@@ -494,36 +542,42 @@
         "rule": {
           "accuracy": 1,
           "brier": 0.027,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 1,
           "brier": 0.002,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       },
       "structured": {
         "rule": {
           "accuracy": 1,
           "brier": 0.028,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 1,
           "brier": 0.002,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       },
       "computed": {
         "rule": {
           "accuracy": 1,
           "brier": 0.03,
-          "n": 60
+          "n": 60,
+          "missed": 0
         },
         "concept": {
           "accuracy": 1,
           "brier": 0.002,
-          "n": 60
+          "n": 60,
+          "missed": 0
         }
       }
     }

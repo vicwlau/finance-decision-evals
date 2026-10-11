@@ -339,17 +339,14 @@ h1 { font-family: var(--serif); font-weight: 560; font-size: clamp(30px, 3vw, 40
 [data-armed] .sc-pull:not([data-on]) { opacity: 0; transform: translateX(-28px); }
 [data-armed] .flag:not([data-on]) { opacity: 0; transform: translateX(18px); }
 
-/* ---------- 3. The general question: the review call's two steps, the payment clause, the stakes ---------- */
+/* ---------- 3. The general question: the review call's two steps, then the payment clause ---------- */
 /* Beside the heading: the review call's two steps on one bar. Under them, the payment clause as the
-   second step's example, with the stakes line beside it under the bar's column. */
+   second step's example. */
 .frame-test { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 64px; align-items: center; }
-.frame-expert { grid-template-areas: "head side" "lever stakes"; row-gap: 0; }
+.frame-expert { grid-template-areas: "head side" "lever ."; row-gap: 0; }
 .frame-expert > .frame-head { grid-area: head; }
 .frame-expert > .progress { grid-area: side; }
 .frame-expert > .lever { grid-area: lever; margin-top: 72px; }
-.frame-expert > .stakes { grid-area: stakes; align-self: start; margin-top: 72px; }
-/* the stakes: a plain paragraph under a hairline */
-.stakes { margin: 56px 0 0; max-width: 640px; padding-top: 16px; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 15px; line-height: 1.55; color: var(--ink); }
 
 /* the progression: two figures over one bar. The light part is the review call with the questions
    spelled out; the dark sliver is what computing the facts added. Each label carries its colour. */
@@ -368,11 +365,10 @@ h1 { font-family: var(--serif); font-weight: 560; font-size: clamp(30px, 3vw, 40
 .progress-fill.is-final { left: calc(var(--a) * 100% + 2px); width: calc((var(--b) - var(--a)) * 100% - 2px); background: var(--accent); }
 .progress-note { margin: 12px 0 0; font-size: 13px; color: var(--pencil); }
 .fig-n { font-family: var(--sans); font-weight: 300; font-size: clamp(56px, 6vw, 76px); line-height: 1; letter-spacing: -0.02em; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.fig-n .pct { font-size: 0.5em; letter-spacing: 0; margin-left: 2px; color: var(--graphite); }
+.fig-n .pct { font-size: 0.4em; letter-spacing: 0; margin-left: 0.25em; color: var(--graphite); }
 .fig-n.accent, .fig-n.accent .pct { color: var(--accent); }
 /* counted numbers keep their final width, so the % sign stays put while they count */
 .fig-n .num { display: inline-block; min-width: calc(2ch - 0.04em); text-align: right; }
-.is-final .fig-n .num { min-width: calc(3ch - 0.06em); }
 /* playing (PlayScene): the bar fills to the first step as its figure counts, then the second step
    appears and the bar runs on to its end */
 [data-armed] .progress:not([data-on])::before { transform: scaleX(0); }
@@ -481,7 +477,7 @@ h1 { font-family: var(--serif); font-weight: 560; font-size: clamp(30px, 3vw, 40
 .req-jev { font-weight: 600; }
 .req-jev.is-wrong { color: var(--accent); }
 .req-gold { color: var(--ink); }
-.case-note { font-family: var(--sans); font-size: 13px; line-height: 1.4; color: var(--graphite); font-style: italic; margin: 0 0 8px; }
+.case-note { font-family: var(--sans); font-size: 13px; line-height: 1.4; color: var(--graphite); font-style: italic; margin: 10px 0 0; }
 .case-why { font-size: 14.5px; line-height: 1.5; color: var(--graphite); margin: 0; }
 /* each card as it scrolls in: the request's rule draws, its rows arrive in order, then the why.
    Side by side, the second card follows the first by --lag. */
@@ -588,11 +584,10 @@ h1 { font-family: var(--serif); font-weight: 560; font-size: clamp(30px, 3vw, 40
   .motion .scene-grid { height: 100%; }
   .motion .scene-focus { position: sticky; top: 0; margin: 0 calc(var(--gutter) * -1); padding: 14px var(--gutter); background: var(--paper); }
   .frame-test, .knowledge { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  .frame-expert { grid-template-areas: "head" "side" "lever" "stakes"; row-gap: 0; }
+  .frame-expert { grid-template-areas: "head" "side" "lever"; row-gap: 0; }
   .frame-expert > .progress { margin-top: 32px; }
   .frame-expert > .lever { margin-top: 56px; }
-  .frame-expert > .stakes { margin-top: 48px; }
-  /* frame 2 stacked: the figure, its note, then the cards in one column. With motion, only the
+    /* frame 2 stacked: the figure, its note, then the cards in one column. With motion, only the
      figure pins (at the top), and each card switches on as it scrolls into view below it. */
   .fits { display: block; }
   .fits-figure { max-width: 520px; }

@@ -38,12 +38,11 @@ import results from "@/data/results.json";
 // keep it as written. Every figure comes from data/results.json. The contract framing (120 pages, section numbers,
 // page references) is illustrative and lives in PAGES and PLACE below.
 
-const { run, grid, byConsideration, cases, demo, calibrationExpert, questions, trainingCounts, optionPair, heldoutTrigger } = results;
+const { run, grid, byConsideration, cases, demo, questions, trainingCounts, optionPair, heldoutTrigger } = results;
 const held = grid.heldout;
 
-/** Frame 3's progression: the review call's accuracy on the held-out set with the rule written out (clause as written), then with the facts also computed. */
+/** The review call's accuracy over every held-out run with the rule written out (clause as written), as the report states it. */
 const TRIGGER_PCT = Math.round(held.prose.trigger.accuracy * 100);
-const COMPUTED_PCT = Math.round(held.computed.trigger.accuracy * 100);
 /** The review flag's runs over the test clauses, and how many of them were wrong. */
 const TRIGGER_RUNS = heldoutTrigger.reduce((s, c) => s + c.runs, 0);
 const TRIGGER_WRONG = TRIGGER_RUNS - heldoutTrigger.reduce((s, c) => s + c.right, 0);
@@ -52,22 +51,12 @@ if (heldoutTrigger.length !== run.heldoutCases || Math.round((100 * (TRIGGER_RUN
   throw new Error(`results.json: heldoutTrigger (${TRIGGER_RUNS - TRIGGER_WRONG}/${TRIGGER_RUNS} over ${heldoutTrigger.length} clauses) disagrees with the trigger accuracy`);
 // Frame 3's title says the review call is right on every test clause once code computes the facts.
 if (held.computed.trigger.accuracy !== 1) throw new Error("results.json: the review flag isn't right on every test clause with facts computed");
+/** Frame 3's first figure in clauses: those whose review call was right on most of their runs, rule written out. */
+const TRIGGER_CLAUSES = heldoutTrigger.filter((c) => c.right * 2 > c.runs).length;
 /**
- * Frame 3's stakes line: how often Jev's middle-band answers come true under the full expert setup
- * (rule written out, facts computed in code), not the pooled table that includes by-name questions.
- */
-const MIDDLE_BAND = (() => {
-  const bin = calibrationExpert.find((b) => b.from === 0.5 && b.to === 0.7);
-  if (!bin || !bin.count) throw new Error("results.json: calibrationExpert has no populated 0.5–0.7 bin");
-  // the line says these answers were right "about half the time"
-  if (Math.abs(bin.observedYes - 0.5) > 0.1) throw new Error(`results.json: the 0.5–0.7 bin came true ${bin.observedYes}, not about half the time`);
-  return bin;
-})();
-
-/**
- * Frame 3's progression plays over PROGRESS_PLAY_MS once in view. The first step (bar to 93%, its
- * figure counting up) runs over PROGRESS_AT[0]; the second (the rest of the bar, the 100% counting
- * on from 93) starts at PROGRESS_AT[1][0]. Fractions of the duration.
+ * Frame 3's progression plays over PROGRESS_PLAY_MS once in view. The first step (bar to 18 of 20
+ * clauses, its figure counting up) runs over PROGRESS_AT[0]; the second (the rest of the bar, the 20
+ * counting on from 18) starts at PROGRESS_AT[1][0]. Fractions of the duration.
  */
 const PROGRESS_PLAY_MS = 1800;
 const PROGRESS_AT: [[number, number], [number, number]] = [
@@ -185,7 +174,7 @@ type CardSpec = {
    */
   ask: { from: string; to?: string };
   cut?: Cut;
-  /** A short line above the excerpt, for a clause that already appeared earlier on the page. */
+  /** A short line under the excerpt: context from the deal that the clause alone doesn't show. */
   note?: string;
   /** A second fact the state carried, by its path in the state (for example `deal.prior_order.add_on_option`). */
   also?: { path: string; value: string };
@@ -235,6 +224,7 @@ const BY_NAME_CARDS = [
     issue: "financing_component",
     fact: { key: "longest_gap_between_service_and_payment", value: "about 9 months" },
     ask: { from: "raise the question" },
+    note: "Paid 90 days into each service year, about 9 months before that year’s service ends.",
     why: "ASC 606 lets a vendor skip the financing assessment when payment arrives within a year of delivery (606-10-32-18), and every payment here does.",
   },
   {
@@ -390,8 +380,8 @@ function VerdictCard({ v, tick }: { v: Verdict; tick: string }) {
     <Reveal as="article" className="case-card verdict-card" tick={tick} lift={0.15}>
       {/* the note shares the excerpt's grid row, so side-by-side cards keep their three rows aligned */}
       <div className="case-head">
-        {v.note ? <p className="case-note">{v.note}</p> : null}
         <Excerpt clause={v.c.clause} cut={v.cut} small />
+        {v.note ? <p className="case-note">{v.note}</p> : null}
       </div>
       {/* the request on the ledger ground: muted red where Jev's answer is wrong */}
       <div className={`req pad${v.said === v.gold ? "" : " is-miss"}`} data-tickmark={tickmarkId("site", "request", v.id, v.question)}>
@@ -469,6 +459,12 @@ export default function Page() {
   const mr = byConsideration.material_right;
   const mrByName = SHAPES.map((s) => mr[s].concept.accuracy);
   const mrRule = SHAPES.map((s) => mr[s].rule.accuracy);
+  /** The chart's note: how many of its wrong answers missed a real material right, rather than saw one that wasn't there. */
+  const mrCells = SHAPES.flatMap((s) => [mr[s].concept, mr[s].rule]);
+  const mrWrong = mrCells.reduce((sum, c) => sum + Math.round((1 - c.accuracy) * c.n), 0);
+  const mrMissed = mrCells.reduce((sum, c) => sum + c.missed, 0);
+  // "almost every" holds only while real misses stay a small share of the wrong answers
+  if (!mrWrong || mrMissed / mrWrong > 0.05) throw new Error(`results.json: ${mrMissed} of ${mrWrong} material-right errors are misses, not false alarms`);
 
   /** Figure D, set aside (SHOW_FIGURE_D in figure-config.ts). When shown, it closes frame 6 and plays as it comes into view. */
   const pairFigure =
@@ -591,7 +587,8 @@ export default function Page() {
                     Revenue impact: {openingIssue}
                   </p>
                   <p className="callout-line impact-line pad">
-                    Customers this size pay at least {usdWhole(sspLow)} per billion, so a {discount}% discount on future purchases
+                    Customers this size normally pay {usdWhole(sspLow)} to {usdWhole(demo.facts.ssp_range_per_bn[1])} per billion, so a{" "}
+                    {discount}% discount on future purchases
                     is a separate right, and part of the {usdWhole(demo.facts.committed_fee_usd)} fee must be deferred.
                   </p>
                   <svg className="pen" data-pen-svg aria-hidden="true">
@@ -723,25 +720,25 @@ export default function Page() {
             <div className="progress-steps">
               <p className="progress-step">
                 <span className="fig-n">
-                  <CountUp value={TRIGGER_PCT} at={PROGRESS_AT[0]} />
-                  <span className="pct">%</span>
+                  <CountUp value={TRIGGER_CLAUSES} at={PROGRESS_AT[0]} />
+                  <span className="pct">of {run.heldoutCases}</span>
                 </span>
                 <span className="progress-label">Rule written out</span>
               </p>
               <p className="progress-step is-final" data-step={1}>
                 <span className="fig-n accent">
-                  <CountUp value={COMPUTED_PCT} from={TRIGGER_PCT} at={PROGRESS_AT[1]} />
-                  <span className="pct">%</span>
+                  <CountUp value={run.heldoutCases} from={TRIGGER_CLAUSES} at={PROGRESS_AT[1]} />
+                  <span className="pct">of {run.heldoutCases}</span>
                 </span>
                 <span className="progress-label">Facts also computed</span>
               </p>
             </div>
             <div className="progress-bar" aria-hidden="true">
-              <i className="progress-fill" data-step={0} style={{ "--a": 0, "--b": TRIGGER_PCT / 100 } as CSSProperties} />
+              <i className="progress-fill" data-step={0} style={{ "--a": 0, "--b": TRIGGER_CLAUSES / run.heldoutCases } as CSSProperties} />
               <i
                 className="progress-fill is-final"
                 data-step={1}
-                style={{ "--a": TRIGGER_PCT / 100, "--b": COMPUTED_PCT / 100 } as CSSProperties}
+                style={{ "--a": TRIGGER_CLAUSES / run.heldoutCases, "--b": 1 } as CSSProperties}
               />
             </div>
           </div>
@@ -753,9 +750,7 @@ export default function Page() {
                 {usdWhole(payment.facts.license_fee_usd)} may be interest, so less revenue is recognized at delivery.
               </p>
               <p className="fix-lead fix-ask">
-                I asked Jev: “{FINANCING_ASK[0]}
-                <code>clause</code>
-                {FINANCING_ASK[1]}”{" "}
+                I asked Jev: “{FINANCING_ASK[0]}[the clause]{FINANCING_ASK[1]}”{" "}
                 <span className="nowrap">
                   Correct answer: <b>{yesNo(finGold)}</b>.
                 </span>
@@ -776,10 +771,6 @@ export default function Page() {
               />
             </div>
           </Reveal>
-          <p className="stakes" data-tickmark={tickmarkId("site", "stakes", "middle-band")}>
-            When Jev was unsure, with an answer between {MIDDLE_BAND.from} and {MIDDLE_BAND.to}, it was right only about half the
-            time ({pct(MIDDLE_BAND.observedYes)} of {MIDDLE_BAND.count} answers). Those are the calls to send to a person.
-          </p>
         </PlayScene>
 
         {/* 4. The technical question: naming the specific ASC 606 issue */}
@@ -803,6 +794,10 @@ export default function Page() {
                     { key: "rule", label: "Rule written out", values: mrRule, strong: true },
                   ]}
                 />
+                <figcaption>
+                  Each bar spans three ways of giving Jev the facts. {mrMissed ? "Almost every" : "Every"} miss was a false alarm:
+                  Jev saw a material right that wasn’t there.
+                </figcaption>
               </figure>
             </Reveal>
           </div>
