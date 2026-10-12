@@ -253,6 +253,8 @@ h1 { font-family: var(--serif); font-weight: 560; font-size: clamp(30px, 3vw, 40
    ScanScene). A stage taller than the screen pins by its foot, so the figure and cards stay whole. */
 .fits { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 500px); grid-template-areas: "figure flags"; column-gap: 40px; margin-top: 36px; align-items: start; }
 .fits-figure { grid-area: figure; }
+/* a footnote under the drawing: what was illustrated versus what was tested */
+.fits-note { margin-top: 8px; font-size: 12.5px; color: var(--pencil); }
 .fits .flags { grid-area: flags; }
 .scan-runway { height: 0; }
 .motion .scan .scan-stage { position: sticky; top: 0; z-index: 1; background: var(--paper); }

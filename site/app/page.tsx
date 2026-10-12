@@ -34,9 +34,8 @@ import results from "@/data/results.json";
 
 // The results page: one story in six frames and a footer. Frames 3 to 5 run from the general
 // question (the review call, set up well), to the technical one (naming the ASC 606 issue), to what
-// that setup still misses. I wrote the copy;
-// keep it as written. Every figure comes from data/results.json. The contract framing (120 pages, section numbers,
-// page references) is illustrative and lives in PAGES and PLACE below.
+// that setup still misses. Every figure comes from data/results.json. The contract framing (120 pages,
+// section numbers, page references) is illustrative and lives in PAGES and PLACE below.
 
 const { run, grid, byConsideration, cases, demo, questions, trainingCounts, optionPair, heldoutTrigger } = results;
 const held = grid.heldout;
@@ -649,6 +648,10 @@ export default function Page() {
                     p. {PAGES} of {PAGES}
                   </p>
                 )}
+                {/* the contract, its pages and section numbers are illustrative; the test sent one clause per request */}
+                <figcaption className="fits-note" data-tickmark={tickmarkId("site", "fits-note")}>
+                  Illustration: in the test, Jev read one clause at a time.
+                </figcaption>
               </figure>
               <ol className="flags">
                 {PLACE.map((place, k) => {
@@ -815,7 +818,7 @@ export default function Page() {
         <section className="frame wrap" data-tickmark={tickmarkId("site", "frame", "structure")} aria-labelledby="f5">
           <FrameHead n="05" name="What’s left">
             <h2 id="f5">Most of the remaining misses come from how Jev reads a clause’s structure.</h2>
-            <p>These errors persist with the rule written out and the facts computed, so better questions won’t fix them.</p>
+            <p>These errors persist with the rule written out and the facts computed.</p>
           </FrameHead>
           <div className="case-cards">
             {STRUCTURE_CARDS.map((v) => (
@@ -854,9 +857,6 @@ export default function Page() {
                 <RepoLink path="">Repository</RepoLink>
               </li>
             </ul>
-            <p className="footer-note" data-tickmark={tickmarkId("site", "footer", "report-note")}>
-              How I ran it, and its limits, are in the full report.
-            </p>
           </div>
           <div className="footer-meta">
             <p className="footer-author">Victor Lau</p>
