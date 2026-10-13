@@ -2,7 +2,6 @@ import type { CSSProperties, ReactNode } from "react";
 import { tickmarkId } from "@vicwlau/tickmark";
 
 import {
-  A_BUILT,
   A_START,
   B_FLAG_AT,
   B_MARKERS,
@@ -536,7 +535,6 @@ export default function Page() {
           figureStart={A_START}
           figureEnd={0.72}
           impactAt={0.8}
-          counter={{ to: PAGES, until: A_BUILT, one: "page", many: "pages" }}
           leader={[0.56, 0.7]}
         >
           <div className="scene-pin" data-pin>

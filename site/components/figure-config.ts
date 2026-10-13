@@ -14,7 +14,7 @@ export const SLOT_RATIO = USE_HAIRLINE ? { a: 5 / 4, b: 5 / 4, c: 5 / 4, d: 5 / 
  */
 export const A_START = USE_HAIRLINE ? 0.2 : 0;
 
-/** Figure A's progress at which the stack is complete; the page counter reaches 120 there. */
+/** Figure A's progress at which the stack is complete. */
 export const A_BUILT = 0.3;
 
 /**

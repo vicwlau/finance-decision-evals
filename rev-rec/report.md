@@ -90,7 +90,8 @@ Accuracy per issue, by how the question was asked and how the facts were given, 
 
 Each rate covers all 20 clauses, so it counts false alarms as well as misses. With 2 to 4 clauses
 per issue, these rates describe these clauses, not Jev in general. No test clause raised
-termination for convenience.
+termination for convenience. Eight test clauses raise no issue; they're look-alikes. The two
+refund clauses also count as variable consideration.
 
 - **Terms of art read in their everyday sense.** By name, Jev finds a "material right" in a refund
   clause, as if the term meant an important right (rr-f2-h01, probability 0.68–0.71). It finds a
